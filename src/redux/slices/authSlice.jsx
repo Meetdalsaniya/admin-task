@@ -1,53 +1,92 @@
-// thunks/authThunks.js
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createSlice } from "@reduxjs/toolkit";
+import { loginUser, logoutUser, loadUser, registerUser } from "../thunks/authThunk";
 
-export const loginUser = createAsyncThunk(
-  "auth/loginUser",
-  async (userData, { rejectWithValue }) => {
-    try {
-      // Make request to json-server with email and password
-      const response = await axios.get(
-        `http://localhost:8080/users?email=${userData.email}&password=${userData.password}`
-      );
+const initialState = {
+  isLoading: false,
+  isAuthenticated: false,
+  user: null,
+  error: null,
+  successMessage: null,
+};
 
-      // Check if user exists
-      if (response.data.length > 0) {
-        // User found - return the first matching user
-        return response.data[0];
-      } else {
-        // No user found - reject with error message
-        return rejectWithValue("Invalid email or password");
-      }
-    } catch (error) {
-      // Handle server error
-      return rejectWithValue("Server error. Please try again.");
-    }
-  }
-);
+const authSlice = createSlice({
+  name: "auth",
+  initialState,
+  reducers: {
+    clearErrors: (state) => {
+      state.error = null;
+    },
+    resetState: (state) => {
+      state.isLoading = false;
+      state.isAuthenticated = false;
+      state.user = null;
+      state.error = null;
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+    // Registration (no user data is stored in Redux)
+    .addCase(registerUser.pending, (state) => {
+      state.isLoading = true;
+      state.error = null;
+      state.successMessage = null;
+    })
+    .addCase(registerUser.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.successMessage = action.payload;  // Store success message
+    })
+    .addCase(registerUser.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    })
+      // Login
+      .addCase(loginUser.pending, (state) => {
+        state.isLoading = true;
+        state.error = null; // Clear error when new request starts
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isAuthenticated = true;
+        state.user = action.payload;
+        state.error = null; // Clear any errors on success
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isAuthenticated = false;
+        state.user = null; // Clear user if login fails
+        state.error = action.payload;
+      })
+      // Logout
+      .addCase(logoutUser.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isAuthenticated = false;
+        state.user = null;
+        state.error = null; // Clear errors on logout
+      })
+      .addCase(logoutUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Load User
+      .addCase(loadUser.pending, (state) => {
+        state.isLoading = true;
+        state.error = null; // Clear error when reloading user
+      })
+      .addCase(loadUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isAuthenticated = true;
+        state.user = action.payload;
+        state.error = null; // Clear any errors on success
+      })
+      .addCase(loadUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isAuthenticated = false;
+        state.user = null; // Clear user if load fails
+        state.error = action.payload;
+      });
+  },
+});
 
-export const logoutUser = createAsyncThunk(
-  "auth/logoutUser",
-  async (_, { rejectWithValue }) => {
-    try {
-      localStorage.removeItem("x-access-token");
-      return "Logout Successfully";
-    } catch (error) {
-      return rejectWithValue("Something Error Occured");
-    }
-  }
-);
+export const { clearErrors, resetState } = authSlice.actions;
 
-export const loadUser = createAsyncThunk(
-  "auth/loadUser",
-  async (_, { rejectWithValue }) => {
-    try {
-      const { data } = await axios.get(`/api/v1/dashboard/profile`);
-      console.log(data, "user Profile ");
-
-      return data.data;
-    } catch (error) {
-      return rejectWithValue(error?.response?.data);
-    }
-  }
-);
+export default authSlice.reducer;

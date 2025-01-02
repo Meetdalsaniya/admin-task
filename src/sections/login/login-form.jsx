@@ -10,8 +10,9 @@ import {
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 
-import { loginUser } from "../../redux/slices/authSlice";
+import { loginUser } from "../../redux/thunks/authThunk";
 import { useNavigate } from "react-router-dom";
+import { showSuccess } from "../../utils/toastUtil";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ const LoginForm = () => {
     dispatch(loginUser(formData)).then((res) => {
       if (res.meta.requestStatus === "fulfilled") {
         navigate("/");
+        showSuccess("User Login successful!");
         console.log("User Login");
       }
     });
@@ -76,9 +78,9 @@ const LoginForm = () => {
             {loading ? "Signing In..." : "Sign In"}
           </Button>
           <Box mt={2}>
-            <Link href="/register" variant="body2">
+            <Button onClick={()=>navigate('/register')} variant="body2">
               Don't have an account? Register
-            </Link>
+            </Button>
           </Box>
         </form>
       </Paper>

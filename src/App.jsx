@@ -7,6 +7,7 @@ import DashboardView from "./sections/dashboard/dashboard-view";
 import Layout from "./components/Layout/layout";
 import ProjectsView from "./sections/project/view/project-view";
 import EstimatesView from "./sections/estimates/view/estimates-view";
+import RegisterView from "./sections/Register/view/register-view";
 
 const App = () => {
   return (
@@ -14,6 +15,8 @@ const App = () => {
       <Routes>
         {/* Public Routes for Login and Register */}
         <Route path="/login" element={<LoginView />} />
+        <Route path="/register" element={<RegisterView />} />
+
 
         {/* Protected Layout Routes */}
         <Route path="/" element={<Layout />}>

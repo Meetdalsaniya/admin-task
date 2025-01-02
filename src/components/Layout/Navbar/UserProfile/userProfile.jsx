@@ -4,16 +4,16 @@ import { useSelector } from "react-redux";
 
 const UserProfile = () => {
   const {user} = useSelector((state)=> state.auth)
-  
+  const userInitial = user?.name ? user.name.charAt(0).toUpperCase() : '';
   return (
     <Box sx={{ display: "flex", alignItems: "center" }}>
-        <Tooltip title={user.email}>
+        <Tooltip title={user?.email}>
 
       <Avatar sx={{ bgcolor:"blue", marginRight: "10px" }}>
-        {"M"}
+        {userInitial}
       </Avatar>
         </Tooltip>
-      <Typography>{user?.name}</Typography>
+      {/* <Typography>{user?.name}</Typography> */}
     </Box>
   );
 };

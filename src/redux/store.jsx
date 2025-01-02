@@ -10,12 +10,11 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "./custom_store"; // Adjust path as necessary
-import authSlice from "./thunks/authThunks"; // Adjust path as necessary
-import companyReducer from "./thunks/companyThunks";
+import authSlice from "./slices/authSlice"; // Adjust path as necessary
 
 const rootReducer = combineReducers({
   auth: authSlice,
-  company: companyReducer,
+
 });
 
 const persistConfig = {

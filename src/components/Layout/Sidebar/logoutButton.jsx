@@ -3,13 +3,15 @@ import { ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { Iconify } from "../../iconify/iconify";
 import { useDispatch } from "react-redux";
-import { logoutUser } from "../../../redux/slices/authSlice";
+import { logoutUser } from "../../../redux/thunks/authThunk";
+import { showSuccess } from "../../../utils/toastUtil";
 
 const LogoutButton = ({ isOpen }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
   const handleLogout = () => {
     dispatch(logoutUser());
+    showSuccess("Logout successful!");
     navigate("/login"); // Redirect to login after logout
   };
   return (
