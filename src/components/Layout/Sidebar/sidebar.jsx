@@ -7,14 +7,14 @@ import {
   ListItemText,
   Box,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import SideBarItems from "./sidebarItems";
-import { Iconify } from "../../iconify/iconify";
 import LogoutButton from "./logoutButton";
 
 
 const Sidebar = ({ isOpen }) => {
   const drawerWidth = isOpen ? 240 : 60;
+  const location = useLocation();
 
   return (
     <Drawer
@@ -42,30 +42,46 @@ const Sidebar = ({ isOpen }) => {
           {isOpen ? "Logo" : "L"}
         </Box>
         <List>
-          {SideBarItems.map((item, index) => (
-            <ListItem
-              button
-              key={index}
-              component={Link}
-              to={item.path}
-              sx={{
-                justifyContent: isOpen ? "flex-start" : "center",
-              }}
-            >
-              <ListItemIcon
+          {SideBarItems.map((item, index) => {
+            const isActive = location.pathname === item.path;
+
+            return (
+              <Box sx={{marginX:"5px"}}>
+
+              <ListItem
+                button
+                key={index}
+                component={Link}
+                to={item.path}
                 sx={{
-                  minWidth: "28px",
-                  justifyContent: "center",
+                  justifyContent: isOpen ? "flex-start" : "center",
+                  backgroundColor: isActive ? "#1976d2" : "transparent",
+                  color: isActive ? "white" : "inherit",
+                  borderRadius: "8px",
+             
+                  marginY: "4px",
+                  "&:hover": {
+                    backgroundColor: isActive ? "#1565c0" : "#f4f4f4",
+                  },
                 }}
               >
-                {item.icon}
-              </ListItemIcon>
-              {isOpen && <ListItemText primary={item.text} />}
-            </ListItem>
-          ))}
+                <ListItemIcon
+                  sx={{
+                    minWidth: "28px",
+                    justifyContent: "center",
+                    color: isActive ? "white" : "inherit",
+                  }}
+                >
+                  {item.icon}
+                </ListItemIcon>
+                {isOpen && <ListItemText primary={item.text} />}
+              </ListItem>
+              </Box>
+            );
+          })}
         </List>
       </Box>
-      
+
       {/* Logout Button at the bottom */}
       <Box sx={{ marginTop: "auto" }}>
         <LogoutButton isOpen={isOpen} />

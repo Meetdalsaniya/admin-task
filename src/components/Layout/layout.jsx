@@ -15,7 +15,7 @@ const Layout = () => {
     <Box sx={{ display: "flex" }}>
       <Sidebar isOpen={isSidebarOpen} />
       <Box sx={{ flexGrow: 1 }}>
-        <Navbar isSidebarOpen={isSidebarOpen} onMenuClick={toggleSidebar} />
+        <Navbar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
         <Toolbar />
         <Box sx={{ p: 3 }}>
           <Outlet />

@@ -7,39 +7,33 @@ import {
   Avatar,
   IconButton,
 } from "@mui/material";
+import GlobalSearch from "./GlobalSearch/globalSearch";
 import { Iconify } from "../../iconify/iconify";
+import UserProfile from "./UserProfile/userProfile";
 
-
-const Navbar = ({ isSidebarOpen,onMenuClick }) => {
+const Navbar = ({ isSidebarOpen, toggleSidebar }) => {
   return (
     <AppBar
       position="fixed"
       sx={{
         width: isSidebarOpen ? `calc(100% - 240px)` : `calc(100% - 60px)`,
-        ml: `240px`,
+        ml: isSidebarOpen ? `240px` : `60px`,
         backgroundColor: "white",
         color: "black",
         boxShadow: "none",
         borderBottom: "1px solid #ddd",
-        transition: "width 0.3s ease, margin-left 0.3s ease",
+        transition: "width 0.3s ease",
       }}
     >
       <Toolbar>
-        <IconButton
-          edge="start"
-          color="inherit"
-          aria-label="menu"
-          onClick={onMenuClick}
-          sx={{ marginRight: 2 }}
-        >
-         <Iconify icon={'bx:menu'}/>
+        <IconButton edge="start" onClick={toggleSidebar} sx={{ marginRight: 2 }}>
+        <Iconify icon={'bx:menu'}/>
         </IconButton>
-        <Typography variant="h6" sx={{ flexGrow: 1 }}>
-          Dashboard
-        </Typography>
-        <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Avatar sx={{ bgcolor: "purple", marginRight: "10px" }}>H</Avatar>
-          <Typography>Harley</Typography>
+        <Box sx={{ flexBasis: "300px" }}>
+          <GlobalSearch />
+        </Box>
+        <Box sx={{ ml: "auto" }}>
+          <UserProfile />
         </Box>
       </Toolbar>
     </AppBar>
