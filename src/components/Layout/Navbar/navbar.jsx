@@ -5,32 +5,38 @@ import {
   Typography,
   Box,
   Avatar,
-  Menu,
-  MenuItem,
   IconButton,
 } from "@mui/material";
-// import NotificationsIcon from "@mui/icons-material/Notifications";
-// import LanguageIcon from "@mui/icons-material/Language";
+import { Iconify } from "../../iconify/iconify";
 
-const Navbar = () => {
+
+const Navbar = ({ isSidebarOpen,onMenuClick }) => {
   return (
     <AppBar
       position="fixed"
       sx={{
-        width: `calc(100% - 240px)`,
+        width: isSidebarOpen ? `calc(100% - 240px)` : `calc(100% - 60px)`,
         ml: `240px`,
         backgroundColor: "white",
         color: "black",
         boxShadow: "none",
         borderBottom: "1px solid #ddd",
+        transition: "width 0.3s ease, margin-left 0.3s ease",
       }}
     >
       <Toolbar>
+        <IconButton
+          edge="start"
+          color="inherit"
+          aria-label="menu"
+          onClick={onMenuClick}
+          sx={{ marginRight: 2 }}
+        >
+         <Iconify icon={'bx:menu'}/>
+        </IconButton>
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
           Dashboard
         </Typography>
-        <IconButton>{/* <NotificationsIcon /> */}</IconButton>
-        <IconButton>{/* <LanguageIcon /> */}</IconButton>
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <Avatar sx={{ bgcolor: "purple", marginRight: "10px" }}>H</Avatar>
           <Typography>Harley</Typography>
