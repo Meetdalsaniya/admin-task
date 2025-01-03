@@ -14,11 +14,15 @@ export function filterByStatus(data, status) {
   return data.filter(row => row.status === status);
 }
 
-// Handle column selection
-export function handleColumnSelect(event, setFilters) {
+export function handleColumnSelect(event, setFilters, columns) {
+  const selectedColumns = event.target.value;
+
+  // Filter selected columns in the order they appear in the original columns array
+  const orderedColumns = columns.filter(column => selectedColumns.includes(column));
+
   setFilters((prevFilters) => ({
     ...prevFilters,
-    columns: event.target.value,
+    columns: orderedColumns, // Update columns to preserve their original order
   }));
 }
 

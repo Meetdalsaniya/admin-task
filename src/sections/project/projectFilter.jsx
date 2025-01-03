@@ -3,6 +3,9 @@ import { TextField, Button, Select, MenuItem, InputLabel, FormControl, Checkbox,
 import { handleColumnSelect } from '../../utils/filterUtil';
 
 const ProjectFilter = ({ filters, handleFilterChange, resetFilters,columns,setFilters }) => {
+  const handleColumnSelectWrapper = (event) => {
+    handleColumnSelect(event, setFilters, columns); // Use updated helper function
+  };
   return (
     <div style={{ marginBottom: '20px' }}>
       <TextField
@@ -30,29 +33,28 @@ const ProjectFilter = ({ filters, handleFilterChange, resetFilters,columns,setFi
         </Select>
       </FormControl>
         {/* Column Selection Filter */}
-        <FormControl style={{ marginRight: '20px' }}>
-      <InputLabel>Columns</InputLabel>
-      <Select
-        multiple
-        value={filters.columns}
-        onChange={(e) => handleColumnSelect(e, setFilters)} // Use the helper function
-        renderValue={(selected) => {
-          // If more than two items are selected, show only the first two and "..."
-          if (selected.length > 2) {
-            return selected.slice(0, 2).join(', ') + '...';
-          }
-          return selected.join(', ');  // Otherwise, show all selected items
-        }}
-        label="Columns"
-      >
-        {columns.map((column) => (
-          <MenuItem key={column} value={column}>
-            <Checkbox checked={filters.columns.indexOf(column) > -1} />
-            <ListItemText primary={column} />
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
+        <FormControl>
+        <InputLabel>Columns</InputLabel>
+        <Select
+          multiple
+          value={filters.columns}
+          onChange={handleColumnSelectWrapper} // Pass the function to handle selection
+          renderValue={(selected) => {
+            if (selected.length > 2) {
+              return selected.slice(0, 2).join(', ') + '...';
+            }
+            return selected.join(', ');  // Show selected columns
+          }}
+          label={'Columns'}
+        >
+          {columns.map((column) => (
+            <MenuItem key={column} value={column}>
+              <Checkbox checked={filters.columns.indexOf(column) > -1} />
+              <ListItemText primary={column} />
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
 
       <Button variant="outlined" onClick={resetFilters}>Reset</Button>
     </div>

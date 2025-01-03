@@ -13,7 +13,7 @@ import { fetchProjects } from '../../../redux/thunks/projectThunk';
 const ProjectsView = () => {
   const columns = ['projectName','address', 'areaLocation', 'contact','status','projectNumber', 'customerName','dueDate','email','manager','Action'];
 
-  const [filters, setFilters] = useState({ date: '', status: 'all', columns: columns });
+  const [filters, setFilters] = useState({ date: '', status: 'all',  columns: [...columns]  });
 const {user} = useSelector((state)=>state.auth)
 const {projects} = useSelector((state)=> state.projects)
   console.log("🚀 ~ ProjectsView ~ projects:", projects)
@@ -35,7 +35,7 @@ const {projects} = useSelector((state)=> state.projects)
   };
 
   const resetFilters = () => {
-    setFilters({ date: '', status: 'all', columns: columns });
+    setFilters({ date: '', status: 'all', columns: [...columns] });
   };
 
   const filteredData = applyFilters(projects, filters);

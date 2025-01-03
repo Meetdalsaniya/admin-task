@@ -4,6 +4,7 @@ import { Iconify } from '../../components/iconify/iconify';
 
 
 const ProjectTableRow = ({ row, columns, handleEditClick, handleDeleteClick }) => {
+  console.log("🚀 ~ ProjectTableRow ~ columns:", columns)
   return (
     <TableRow>
       {/* Display project data for each column */}
