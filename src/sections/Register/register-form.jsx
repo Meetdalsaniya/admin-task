@@ -6,13 +6,14 @@ import {
   Typography,
   Container,
   Paper,
-  Link,
 } from "@mui/material";
 import { useDispatch } from "react-redux";
-
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../redux/thunks/authThunk";
 import { showSuccess } from "../../utils/toastUtil";
+
+// Importing helper functions for validation
+import { validateEmail, validatePassword, validateName } from "../../utils/validationUtil";
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -28,19 +29,6 @@ const RegisterForm = () => {
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [nameError, setNameError] = useState("");
-
-  const validateEmail = (email) => {
-    const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-    return regex.test(email);
-  };
-
-  const validatePassword = (password) => {
-    return password.length >= 6;
-  };
-
-  const validateName = (name) => {
-    return name.trim().length > 0;
-  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -152,7 +140,7 @@ const RegisterForm = () => {
             Register
           </Button>
           <Box mt={2}>
-            <Button onClick={()=>navigate('/login')} variant="body2">
+            <Button onClick={() => navigate('/login')} variant="body2">
               Already have an account? Sign In
             </Button>
           </Box>
