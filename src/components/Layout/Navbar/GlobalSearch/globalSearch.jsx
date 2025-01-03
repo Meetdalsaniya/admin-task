@@ -52,7 +52,7 @@ const GlobalSearch = () => {
           backgroundColor: "white",
          
         }}
-        borderRadius={'20px'}
+       
         inputRef={anchorRef}
       />
       <Popper

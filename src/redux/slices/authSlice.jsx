@@ -7,6 +7,8 @@ const initialState = {
   user: null,
   error: null,
   successMessage: null,
+  loginTimestamp: null,
+  tokenExpirationTime: null,
 };
 
 const authSlice = createSlice({
@@ -21,39 +23,55 @@ const authSlice = createSlice({
       state.isAuthenticated = false;
       state.user = null;
       state.error = null;
+      state.loginTimestamp = null;
+      state.tokenExpirationTime = null;
+    },
+    setAuthData: (state, action) => {
+      state.loginTimestamp = action.payload.loginTimestamp;
+      state.tokenExpirationTime = action.payload.tokenExpirationTime;
+      state.isAuthenticated = true;
     },
   },
   extraReducers: (builder) => {
     builder
-    // Registration (no user data is stored in Redux)
-    .addCase(registerUser.pending, (state) => {
-      state.isLoading = true;
-      state.error = null;
-      state.successMessage = null;
-    })
-    .addCase(registerUser.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.successMessage = action.payload;  // Store success message
-    })
-    .addCase(registerUser.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    })
+      .addCase(registerUser.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+        state.successMessage = null;
+      })
+      .addCase(registerUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.successMessage = action.payload;
+      })
+      .addCase(registerUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
       // Login
       .addCase(loginUser.pending, (state) => {
         state.isLoading = true;
-        state.error = null; // Clear error when new request starts
+        state.error = null;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isAuthenticated = true;
         state.user = action.payload;
-        state.error = null; // Clear any errors on success
+        state.error = null;
+
+        // Save loginTimestamp and tokenExpirationTime in localStorage
+        const loginTimestamp = Date.now();
+        const tokenExpirationTime = loginTimestamp + 1000*60*60;
+
+        localStorage.setItem("loginTimestamp", loginTimestamp);
+        localStorage.setItem("tokenExpirationTime", tokenExpirationTime);
+
+        state.loginTimestamp = loginTimestamp;
+        state.tokenExpirationTime = tokenExpirationTime;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;
         state.isAuthenticated = false;
-        state.user = null; // Clear user if login fails
+        state.user = null;
         state.error = action.payload;
       })
       // Logout
@@ -61,7 +79,11 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.isAuthenticated = false;
         state.user = null;
-        state.error = null; // Clear errors on logout
+        state.error = null;
+        state.loginTimestamp = null;
+        state.tokenExpirationTime = null;
+        localStorage.removeItem("loginTimestamp");
+        localStorage.removeItem("tokenExpirationTime");
       })
       .addCase(logoutUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -70,23 +92,23 @@ const authSlice = createSlice({
       // Load User
       .addCase(loadUser.pending, (state) => {
         state.isLoading = true;
-        state.error = null; // Clear error when reloading user
+        state.error = null;
       })
       .addCase(loadUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isAuthenticated = true;
         state.user = action.payload;
-        state.error = null; // Clear any errors on success
+        state.error = null;
       })
       .addCase(loadUser.rejected, (state, action) => {
         state.isLoading = false;
         state.isAuthenticated = false;
-        state.user = null; // Clear user if load fails
+        state.user = null;
         state.error = action.payload;
       });
   },
 });
 
-export const { clearErrors, resetState } = authSlice.actions;
+export const { clearErrors, resetState, setAuthData } = authSlice.actions;
 
 export default authSlice.reducer;

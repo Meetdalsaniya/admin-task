@@ -68,3 +68,23 @@ export const loadUser = createAsyncThunk(
     }
   }
 );
+
+// Async thunk to check user authentication status
+export const checkAuthStatus = createAsyncThunk(
+  "auth/checkAuthStatus",
+  async (_, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem("authToken"); // Check if the token exists in localStorage
+
+      if (token) {
+        // If the token exists, return a success action with the token
+        return { token }; // You can also add other user info here if needed
+      } else {
+        // If no token exists, return a failure action
+        return rejectWithValue("No token found, user is not authenticated.");
+      }
+    } catch (error) {
+      return rejectWithValue("Error checking authentication status.");
+    }
+  }
+);
