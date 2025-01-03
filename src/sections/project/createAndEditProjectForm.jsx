@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TextField, Button, MenuItem, FormControl, InputLabel, Select, FormHelperText, Box, Grid } from "@mui/material";
 import { validateEmail, validateName, validateRequired, validateNumber } from "../../utils/validationUtil";  // Import helper functions
 import { useDispatch, useSelector } from "react-redux";
-import { createProject } from "../../redux/thunks/projectThunk";
+import { createProject, updateProject } from "../../redux/thunks/projectThunk";
 import { useNavigate } from "react-router-dom";
 import { showSuccess } from "../../utils/toastUtil";
 
-const CreateAndEditProjectForm = () => {
+const CreateAndEditProjectForm = ({currunt}) => {
 
   const {user} = useSelector((state)=>state.auth)
   const [formData, setFormData] = useState({
@@ -23,6 +23,26 @@ const CreateAndEditProjectForm = () => {
     status: "",
     email: "",
   });
+
+
+ useEffect(() => {
+  if (currunt) {
+    setFormData({
+      customerName: currunt.customerName || "",
+      referenceNumber: currunt.referenceNumber || "",
+      projectName: currunt.projectName || "",
+      projectNumber: currunt.projectNumber || "",
+      areaLocation: currunt.areaLocation || "",
+      address: currunt.address || "",
+      dueDate: currunt.dueDate || "",
+      contact: currunt.contact || "",
+      manager: currunt.manager || "",
+      staff: currunt.staff || "",
+      status: currunt.status || "",
+      email: currunt.email || "",
+    });
+  }
+}, [currunt]);
 
   const [errors, setErrors] = useState({
     customerName: "",
@@ -107,7 +127,11 @@ const CreateAndEditProjectForm = () => {
     setErrors(formErrors);
   };
 
-
+const handleEditSubmit = (e,id) => {
+  e.preventDefault();
+  const editProjectData = { ...formData }
+dispatch(updateProject(id,editProjectData))
+}
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -135,13 +159,12 @@ const CreateAndEditProjectForm = () => {
           showSuccess("Project Create successful!");
         });
       }
-      console.log("Form Submitted", formData);
     }
   };
 
   return (
     <Box sx={{ padding: 3 }}>
-      <form onSubmit={handleSubmit}>
+      <form>
         <Grid container spacing={3}>
           {/* Customer Name */}
           <Grid item xs={12} md={4}>
@@ -311,10 +334,10 @@ const CreateAndEditProjectForm = () => {
 
           {/* Buttons */}
           <Grid item xs={12} md={12}>
-            <Button type="submit" variant="contained" color="primary" sx={{ marginRight: 2 }}>
-              Add Project
+            <Button type="submit" variant="contained" color="primary" sx={{ marginRight: 2 }} onClick={(e)=>{currunt ?handleEditSubmit(e,currunt.id):handleSubmit(e)}}>
+              {!currunt ? 'Add Project' :'Save Project'}
             </Button>
-            <Button variant="outlined" color="secondary" onClick={() => setFormData({})}>
+            <Button variant="outlined" color="secondary" onClick={(e) => setFormData({})}>
               Cancel
             </Button>
           </Grid>

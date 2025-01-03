@@ -2,6 +2,7 @@ import { Iconify } from "../components/iconify/iconify";
 import DashboardView from "../sections/dashboard/dashboard-view";
 import EstimatesView from "../sections/estimates/view/estimates-view";
 import ProjectCreateView from "../sections/project/view/project-create-view";
+import ProjectEditView from "../sections/project/view/project-edit-view";
 import ProjectsView from "../sections/project/view/project-view";
 
 
@@ -23,6 +24,12 @@ const PrivateRoute = [
     icon: <Iconify icon={'si:projects-alt-duotone'}/>,
     path: '/projects/create',
     component :<ProjectCreateView/>
+  },
+  {
+    text: 'Projects',
+    icon: <Iconify icon={'si:projects-alt-duotone'}/>,
+    path: '/projects/:id',
+    component :<ProjectEditView />
   },
   {
     text: 'Estimates',

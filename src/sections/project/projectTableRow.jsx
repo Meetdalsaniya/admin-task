@@ -13,7 +13,7 @@ const ProjectTableRow = ({ row, columns, handleEditClick, handleDeleteClick }) =
         if (column === "Action") {
           return (
             <TableCell key={column}>
-              <IconButton onClick={() => handleEditClick(row)}>
+              <IconButton onClick={() => handleEditClick(row.id)}>
                 <Iconify icon={'raphael:edit'} />
               </IconButton>
               <IconButton onClick={() => handleDeleteClick(row.id)}>

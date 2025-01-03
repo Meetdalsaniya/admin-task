@@ -13,6 +13,19 @@ export const createProject = createAsyncThunk(
     }
   );
 
+ 
+  export const fetchProjectById = createAsyncThunk(
+    'projects/fetchProjectById',
+    async (id, { rejectWithValue }) => {
+      try {
+        const response = await axios.get(`http://localhost:8080/projects/${id}`);
+        return response.data;
+      } catch (error) {
+        return rejectWithValue(error.message);
+      }
+    }
+  );
+
   // Async thunk to fetch projects for a user
 export const fetchProjects = createAsyncThunk(
     'projects/fetchProjects',
@@ -25,3 +38,35 @@ export const fetchProjects = createAsyncThunk(
       }
     }
   );
+
+
+    // Async thunk to fetch projects for a user
+export const updateProject = createAsyncThunk(
+  'projects/updateProject',
+  async (id,projectData, { rejectWithValue }) => {
+    try {
+      const response = await axios.put(`http://localhost:8080/projects/${id}`,projectData);
+      console.log("🚀 ~ response:", response)
+      return response.data; // Return the fetched projects
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+
+
+    // Async thunk to fetch projects for a user
+    export const deleteProject = createAsyncThunk(
+      'projects/deleteProject',
+      async (id, { rejectWithValue }) => {
+        try {
+          const response = await axios.delete(`http://localhost:8080/projects/${id}`);
+          console.log("🚀 ~ response:", response)
+          return response.data; // Return the fetched projects
+        } catch (error) {
+          return rejectWithValue(error.message);
+        }
+      }
+    );
+    

@@ -7,7 +7,7 @@ import { applyFilters } from '../../../utils/filterUtil';
 import { Iconify } from '../../../components/iconify/iconify';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProjects } from '../../../redux/thunks/projectThunk';
+import { deleteProject, fetchProjects, updateProject } from '../../../redux/thunks/projectThunk';
 
 
 const ProjectsView = () => {
@@ -16,6 +16,7 @@ const ProjectsView = () => {
   const [filters, setFilters] = useState({ date: '', status: 'all',  columns: [...columns]  });
 const {user} = useSelector((state)=>state.auth)
 const {projects} = useSelector((state)=> state.projects)
+  console.log("🚀 ~ ProjectsView ~ projects:", projects)
   console.log("🚀 ~ ProjectsView ~ projects:", projects)
   const data = [
     { id: 1, name: 'John', date: '2025-01-01', status: 'active' },
@@ -41,11 +42,14 @@ const {projects} = useSelector((state)=> state.projects)
   const filteredData = applyFilters(projects, filters);
 
 
-  const handleEditClick = (row) => {
-    console.log('Edit clicked for project:', row);
-    // Implement edit functionality here (e.g., open the edit form)
+  const handleEditClick = (id) => {
+  navigate(`/projects/${id}`)
   };
-  
+
+  const handleDeleteClick = (id) => {
+    dispatch(deleteProject(id)); // Dispatch delete action
+  };
+
   useEffect(() => {
     if (user) {
       dispatch(fetchProjects(user.id)); // Fetch projects for the logged-in user
@@ -79,7 +83,7 @@ Add Project
           </TableHead>
           <TableBody>
             {filteredData.map((row, index) => (
-              <ProjectTableRow key={index} row={row} columns={filters.columns} />
+              <ProjectTableRow key={index} row={row} columns={filters.columns} handleEditClick={handleEditClick} handleDeleteClick={handleDeleteClick}/>
             ))}
           </TableBody>
         </Table>
