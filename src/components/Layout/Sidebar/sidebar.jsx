@@ -27,6 +27,7 @@ const Sidebar = ({ isOpen }) => {
           boxSizing: "border-box",
           transition: "width 0.3s ease",
         },
+        position:"absolute"
       }}
     >
       <Box sx={{ overflow: "hidden" }}>
