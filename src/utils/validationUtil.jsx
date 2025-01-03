@@ -14,3 +14,13 @@ export const validateEmail = (email) => {
     return name.trim().length > 0;
   };
   
+  // Validate Number (for reference number and project number)
+export const validateNumber = (value) => {
+  return /^[0-9]+$/.test(value);
+};
+
+// Validate Required Fields
+export const validateRequired = (value) => {
+  return value && value.trim().length > 0;
+};
+  

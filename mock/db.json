@@ -49,6 +49,47 @@
       "email": "mrm@yopmail.com",
       "password": "Test@123",
       "confirmPassword": "Test@123"
+    },
+    {
+      "id": "6d89",
+      "name": "abcd",
+      "email": "abcd@yopmail.com",
+      "password": "Test@123",
+      "confirmPassword": "Test@123"
+    }
+  ],
+  "projects": [
+    {
+      "id": "5f54",
+      "customerName": "meet Dalsaniya",
+      "referenceNumber": "123",
+      "projectName": "Abcd",
+      "projectNumber": "890",
+      "areaLocation": "ahmedabad",
+      "address": "ahamedab",
+      "dueDate": "2025-01-12",
+      "contact": "1234567890",
+      "manager": "dushyant",
+      "staff": "react js",
+      "status": "active",
+      "email": "meet@gmail.com",
+      "userId": "008b"
+    },
+    {
+      "id": "1aa7",
+      "customerName": "mrm",
+      "referenceNumber": "2324",
+      "projectName": "Project 2",
+      "projectNumber": "4400",
+      "areaLocation": "Ahmedabad",
+      "address": "ahemdabad",
+      "dueDate": "2025-01-17",
+      "contact": "1234567890",
+      "manager": "dushyant",
+      "staff": "React js",
+      "status": "active",
+      "email": "sales@asbbd.com",
+      "userId": "008b"
     }
   ],
   "profile": {
