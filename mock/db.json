@@ -60,20 +60,20 @@
   ],
   "projects": [
     {
-      "id": "040c",
       "customerName": "Dushyant Khoda",
       "referenceNumber": "2324",
-      "projectName": "Project 2",
+      "projectName": "Project 1",
       "projectNumber": "4400",
       "areaLocation": "Ahmedabad",
-      "address": "Times of india press road",
-      "dueDate": "2025-01-10",
+      "address": "Ahamedabad",
+      "dueDate": "2025-01-22",
       "contact": "1234567890",
       "manager": "dushyant",
       "staff": "React js",
-      "status": "active",
-      "email": "a@gmail.com",
-      "userId": "008b"
+      "status": "inactive",
+      "email": "mrm@yopmail.com",
+      "userId": "008b",
+      "id": "2cde"
     }
   ],
   "profile": {

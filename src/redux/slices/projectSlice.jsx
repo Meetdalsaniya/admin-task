@@ -1,11 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUser, logoutUser, loadUser, registerUser } from "../thunks/authThunk";
-import { createProject, deleteProject, fetchProjectById, fetchProjects, updateProject } from "../thunks/projectThunk";
+import {
+  loginUser,
+  logoutUser,
+  loadUser,
+  registerUser,
+} from "../thunks/authThunk";
+import {
+  createProject,
+  deleteProject,
+  fetchProjectById,
+  fetchProjects,
+  updateProject,
+} from "../thunks/projectThunk";
 
-const initialState =  { projects: [], loading: false, error: null }
+const initialState = { projects: [], loading: false, error: null };
 
 const projectSlice = createSlice({
-   name: 'projects',
+  name: "projects",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -46,34 +57,38 @@ const projectSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-    .addCase(updateProject.pending, (state) => {
-      state.loading = true;
-      state.error = null;
-    })
-    .addCase(updateProject.fulfilled, (state, action) => {
-      state.loading = false;
-      const updatedProject = action.payload;
-      const index = state.projects.findIndex((project) => project.id === updatedProject.id);
-      if (index !== -1) {
-        state.projects[index] = updatedProject;
-      }
-    })
-    .addCase(updateProject.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    })
-    .addCase(deleteProject.pending, (state) => {
-      state.loading = true;
-      state.error = null;
-    })
-    .addCase(deleteProject.fulfilled, (state, action) => {
-      state.loading = false;
-      state.projects = state.projects.filter((project) => project.id !== action.payload);
-    })
-    .addCase(deleteProject.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    });
+      .addCase(updateProject.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateProject.fulfilled, (state, action) => {
+        state.loading = false;
+        const updatedProject = action.payload;
+        const index = state.projects.findIndex(
+          (project) => project.id === updatedProject.id
+        );
+        if (index !== -1) {
+          state.projects[index] = updatedProject;
+        }
+      })
+      .addCase(updateProject.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(deleteProject.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteProject.fulfilled, (state, action) => {
+        state.loading = false;
+        state.projects = state.projects.filter(
+          (project) => project.id !== action.payload.id
+        );
+      })
+      .addCase(deleteProject.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
   },
 });
 export const { clearErrors, resetState, setAuthData } = projectSlice.actions;

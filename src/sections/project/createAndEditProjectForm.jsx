@@ -1,14 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { TextField, Button, MenuItem, FormControl, InputLabel, Select, FormHelperText, Box, Grid } from "@mui/material";
-import { validateEmail, validateName, validateRequired, validateNumber } from "../../utils/validationUtil";  // Import helper functions
+import {
+  TextField,
+  Button,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Select,
+  FormHelperText,
+  Box,
+  Grid,
+} from "@mui/material";
+import {
+  validateEmail,
+  validateName,
+  validateRequired,
+  validateNumber,
+} from "../../utils/validationUtil"; // Import helper functions
 import { useDispatch, useSelector } from "react-redux";
 import { createProject, updateProject } from "../../redux/thunks/projectThunk";
 import { useNavigate } from "react-router-dom";
 import { showSuccess } from "../../utils/toastUtil";
 
-const CreateAndEditProjectForm = ({currunt}) => {
-
-  const {user} = useSelector((state)=>state.auth)
+const CreateAndEditProjectForm = ({ currunt }) => {
+  const { user } = useSelector((state) => state.auth);
   const [formData, setFormData] = useState({
     customerName: "",
     referenceNumber: "",
@@ -24,25 +38,24 @@ const CreateAndEditProjectForm = ({currunt}) => {
     email: "",
   });
 
-
- useEffect(() => {
-  if (currunt) {
-    setFormData({
-      customerName: currunt.customerName || "",
-      referenceNumber: currunt.referenceNumber || "",
-      projectName: currunt.projectName || "",
-      projectNumber: currunt.projectNumber || "",
-      areaLocation: currunt.areaLocation || "",
-      address: currunt.address || "",
-      dueDate: currunt.dueDate || "",
-      contact: currunt.contact || "",
-      manager: currunt.manager || "",
-      staff: currunt.staff || "",
-      status: currunt.status || "",
-      email: currunt.email || "",
-    });
-  }
-}, [currunt]);
+  useEffect(() => {
+    if (currunt) {
+      setFormData({
+        customerName: currunt.customerName || "",
+        referenceNumber: currunt.referenceNumber || "",
+        projectName: currunt.projectName || "",
+        projectNumber: currunt.projectNumber || "",
+        areaLocation: currunt.areaLocation || "",
+        address: currunt.address || "",
+        dueDate: currunt.dueDate || "",
+        contact: currunt.contact || "",
+        manager: currunt.manager || "",
+        staff: currunt.staff || "",
+        status: currunt.status || "",
+        email: currunt.email || "",
+      });
+    }
+  }, [currunt]);
 
   const [errors, setErrors] = useState({
     customerName: "",
@@ -59,8 +72,8 @@ const CreateAndEditProjectForm = ({currunt}) => {
     email: "",
   });
 
-  const navigate = useNavigate(); 
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   // Handle input change and validate on change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -81,44 +94,64 @@ const CreateAndEditProjectForm = ({currunt}) => {
 
     switch (fieldName) {
       case "customerName":
-        formErrors.customerName = validateRequired(value) ? "" : "Customer name is required.";
+        formErrors.customerName = validateRequired(value)
+          ? ""
+          : "Customer name is required.";
         break;
       case "referenceNumber":
-        formErrors.referenceNumber = validateRequired(value) && validateNumber(value)
-          ? ""
-          : "Reference number is required and must be a number.";
+        formErrors.referenceNumber =
+          validateRequired(value) && validateNumber(value)
+            ? ""
+            : "Reference number is required and must be a number.";
         break;
       case "projectName":
-        formErrors.projectName = validateRequired(value) ? "" : "Project name is required.";
+        formErrors.projectName = validateRequired(value)
+          ? ""
+          : "Project name is required.";
         break;
       case "projectNumber":
-        formErrors.projectNumber = validateRequired(value) && validateNumber(value)
-          ? ""
-          : "Project number is required and must be a number.";
+        formErrors.projectNumber =
+          validateRequired(value) && validateNumber(value)
+            ? ""
+            : "Project number is required and must be a number.";
         break;
       case "areaLocation":
-        formErrors.areaLocation = validateRequired(value) ? "" : "Area location is required.";
+        formErrors.areaLocation = validateRequired(value)
+          ? ""
+          : "Area location is required.";
         break;
       case "address":
-        formErrors.address = validateRequired(value) ? "" : "Address is required.";
+        formErrors.address = validateRequired(value)
+          ? ""
+          : "Address is required.";
         break;
       case "dueDate":
-        formErrors.dueDate = validateRequired(value) ? "" : "Due date is required.";
+        formErrors.dueDate = validateRequired(value)
+          ? ""
+          : "Due date is required.";
         break;
       case "contact":
-        formErrors.contact = validateRequired(value) ? "" : "Contact is required.";
+        formErrors.contact = validateRequired(value)
+          ? ""
+          : "Contact is required.";
         break;
       case "manager":
-        formErrors.manager = validateRequired(value) ? "" : "Manager is required.";
+        formErrors.manager = validateRequired(value)
+          ? ""
+          : "Manager is required.";
         break;
       case "staff":
         formErrors.staff = validateRequired(value) ? "" : "Staff is required.";
         break;
       case "status":
-        formErrors.status = validateRequired(value) ? "" : "Status is required.";
+        formErrors.status = validateRequired(value)
+          ? ""
+          : "Status is required.";
         break;
       case "email":
-        formErrors.email = validateEmail(value) ? "" : "Please enter a valid email.";
+        formErrors.email = validateEmail(value)
+          ? ""
+          : "Please enter a valid email.";
         break;
       default:
         break;
@@ -127,11 +160,31 @@ const CreateAndEditProjectForm = ({currunt}) => {
     setErrors(formErrors);
   };
 
-const handleEditSubmit = (e,id) => {
-  e.preventDefault();
-  const editProjectData = { ...formData }
-dispatch(updateProject(id,editProjectData))
-}
+  const handleEditSubmit = (e, id) => {
+    e.preventDefault();
+    let isValid = true;
+
+    Object.keys(formData).forEach((field) => {
+      const fieldValue = formData[field];
+      validateField(field, fieldValue);
+
+      // If any field has an error, mark the form as invalid
+      if (errors[field]) {
+        isValid = false;
+      }
+    });
+    if (isValid) {
+      if (user) {
+        const editProjectData = { ...formData, userId: user.id };
+        dispatch(updateProject({ id, projectData: editProjectData })).then(
+          () => {
+            navigate("/projects");
+            showSuccess("Project Edit successful!");
+          }
+        );
+      }
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -155,7 +208,7 @@ dispatch(updateProject(id,editProjectData))
       if (user) {
         const newProject = { ...formData, userId: user.id };
         dispatch(createProject(newProject)).then(() => {
-          navigate('/projects'); 
+          navigate("/projects");
           showSuccess("Project Create successful!");
         });
       }
@@ -334,10 +387,22 @@ dispatch(updateProject(id,editProjectData))
 
           {/* Buttons */}
           <Grid item xs={12} md={12}>
-            <Button type="submit" variant="contained" color="primary" sx={{ marginRight: 2 }} onClick={(e)=>{currunt ?handleEditSubmit(e,currunt.id):handleSubmit(e)}}>
-              {!currunt ? 'Add Project' :'Save Project'}
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              sx={{ marginRight: 2 }}
+              onClick={(e) => {
+                currunt ? handleEditSubmit(e, currunt.id) : handleSubmit(e);
+              }}
+            >
+              {!currunt ? "Add Project" : "Save Project"}
             </Button>
-            <Button variant="outlined" color="secondary" onClick={(e) => setFormData({})}>
+            <Button
+              variant="outlined"
+              color="secondary"
+              onClick={(e) => setFormData({})}
+            >
               Cancel
             </Button>
           </Grid>
