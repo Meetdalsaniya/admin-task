@@ -401,7 +401,10 @@ const CreateAndEditProjectForm = ({ currunt }) => {
             <Button
               variant="outlined"
               color="secondary"
-              onClick={(e) => setFormData({})}
+              onClick={(e) => {
+                setFormData({});
+                navigate("/projects");
+              }}
             >
               Cancel
             </Button>

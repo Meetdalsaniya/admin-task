@@ -25,6 +25,16 @@ const EstimatesItemRow = ({
       </Grid2>
       <Grid2 size={{ xs: 12, sm: 6, md: 3, lg: 2 }}>
         <TextField
+          label="Description"
+          value={item.description}
+          onChange={(e) =>
+            handleChange(sectionIndex, itemIndex, "description", e.target.value)
+          }
+          fullWidth
+        />
+      </Grid2>
+      <Grid2 size={{ xs: 12, sm: 6, md: 3, lg: 1 }}>
+        <TextField
           label="Unit"
           value={item.unit}
           onChange={(e) =>
@@ -33,7 +43,7 @@ const EstimatesItemRow = ({
           fullWidth
         />
       </Grid2>
-      <Grid2 size={{ xs: 12, sm: 6, md: 3, lg: 2 }}>
+      <Grid2 size={{ xs: 12, sm: 6, md: 3, lg: 1 }}>
         <TextField
           label="Quantity"
           type="number"
@@ -46,6 +56,15 @@ const EstimatesItemRow = ({
               parseFloat(e.target.value) || 0
             )
           }
+          sx={{
+            "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
+              {
+                display: "none",
+              },
+            "& input[type=number]": {
+              MozAppearance: "textfield",
+            },
+          }}
           fullWidth
         />
       </Grid2>
@@ -62,6 +81,15 @@ const EstimatesItemRow = ({
               parseFloat(e.target.value) || 0
             )
           }
+          sx={{
+            "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
+              {
+                display: "none",
+              },
+            "& input[type=number]": {
+              MozAppearance: "textfield",
+            },
+          }}
           fullWidth
         />
       </Grid2>
@@ -78,6 +106,15 @@ const EstimatesItemRow = ({
               parseFloat(e.target.value) || 0
             )
           }
+          sx={{
+            "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
+              {
+                display: "none",
+              },
+            "& input[type=number]": {
+              MozAppearance: "textfield",
+            },
+          }}
           fullWidth
         />
       </Grid2>

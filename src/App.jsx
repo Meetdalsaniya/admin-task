@@ -4,7 +4,6 @@ import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import LoginView from "./sections/login/view/login-view";
-import DashboardView from "./sections/dashboard/dashboard-view";
 import Layout from "./components/Layout/layout";
 import ProjectsView from "./sections/project/view/project-view";
 import EstimatesView from "./sections/estimates/view/estimates-view";
@@ -31,21 +30,15 @@ const App = () => {
 
         {/* Protected Layout Routes */}
         <Route path="/" element={<Layout />}>
-        {
-          PrivateRoute.map((e,index)=> {
+          {PrivateRoute.map((e, index) => {
             return (
               <Route
-              key={index}
-              path={e.path}
-              element={
-                <ProtectedRoute>
-                 {e.component}
-                </ProtectedRoute>
-              }
-            />
-            )
-          })
-        }
+                key={index}
+                path={e.path}
+                element={<ProtectedRoute>{e.component}</ProtectedRoute>}
+              />
+            );
+          })}
         </Route>
       </Routes>
     </Router>

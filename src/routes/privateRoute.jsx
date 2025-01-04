@@ -1,5 +1,6 @@
 import { Iconify } from "../components/iconify/iconify";
-import DashboardView from "../sections/dashboard/dashboard-view";
+import DashboardView from "../sections/dashboard/view/dashboard-view";
+
 import EstimateCreateView from "../sections/estimates/view/estimate-create-view";
 import EstimateEditView from "../sections/estimates/view/estimate-edit-view";
 import EstimatesView from "../sections/estimates/view/estimates-view";

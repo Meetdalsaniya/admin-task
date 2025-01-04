@@ -40,6 +40,7 @@ const EstimatesCreateEditView = ({ current }) => {
     totalMargin: 0,
     totalAmount: 0,
   });
+  const [clinetname, setClinetName] = useState("");
 
   const { user } = useSelector((state) => state.auth);
 
@@ -49,6 +50,7 @@ const EstimatesCreateEditView = ({ current }) => {
   useEffect(() => {
     if (current) {
       setSections(current.sections || [initialSection]);
+      setClinetName(current.clinetname);
     }
   }, [current]);
 
@@ -97,7 +99,7 @@ const EstimatesCreateEditView = ({ current }) => {
     const editData = {
       sections,
       userId: user.id,
-      clinetname: "Meet",
+      clinetname: clinetname,
       total: totalEstimate,
     };
     const response = await dispatch(
@@ -121,7 +123,7 @@ const EstimatesCreateEditView = ({ current }) => {
       createEstimation({
         sections,
         userId: user.id,
-        clinetname: "Meet",
+        clinetname: clinetname,
         total: totalEstimate,
       })
     ).then(() => {
@@ -131,10 +133,20 @@ const EstimatesCreateEditView = ({ current }) => {
   };
 
   return (
-    <Container>
+    <>
       <Typography variant="h4" gutterBottom>
         Estimation Module
       </Typography>
+      <Box>
+        <TextField
+          label="Clint Name"
+          value={clinetname}
+          sx={{ marginBottom: "10px" }}
+          onChange={(e) => {
+            setClinetName(e.target.value);
+          }}
+        />
+      </Box>
       {sections.map((section, sectionIndex) => {
         // const sectionTotal = calculateTotal(section.items);
         const sectionTotal = calculateTotals(section.items);
@@ -243,7 +255,7 @@ const EstimatesCreateEditView = ({ current }) => {
           </Button>
         </Box>
       </Box>
-    </Container>
+    </>
   );
 };
 
