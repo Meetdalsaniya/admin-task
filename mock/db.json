@@ -65,46 +65,8 @@
       "confirmPassword": "Password@123"
     }
   ],
-  "projects": [
-    {
-      "customerName": "Dushyant Khoda",
-      "referenceNumber": "2324",
-      "projectName": "Project 1",
-      "projectNumber": "4400",
-      "areaLocation": "Ahmedabad",
-      "address": "Ahamedabad",
-      "dueDate": "2025-01-22",
-      "contact": "1234567890",
-      "manager": "dushyant",
-      "staff": "React js",
-      "status": "inactive",
-      "email": "mrm@yopmail.com",
-      "userId": "008b",
-      "id": "2cde"
-    }
-  ],
+  "projects": [],
   "estimation": [
-    {
-      "sections": [
-        {
-          "title": "New Section",
-          "items": [
-            {
-              "title": "grgrgrg",
-              "description": "",
-              "unit": "rgrgrggr",
-              "quantity": 1116,
-              "price": 100,
-              "margin": 100
-            }
-          ]
-        }
-      ],
-      "userId": "008b",
-      "clinetname": "Meet",
-      "total": 223200,
-      "id": "6901"
-    },
     {
       "id": "36e4",
       "sections": [

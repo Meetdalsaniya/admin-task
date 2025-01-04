@@ -37,8 +37,17 @@ const LoginForm = () => {
     });
   };
   return (
-    <Container component="main" maxWidth="xs">
-      <Paper elevation={3} sx={{ padding: 4, marginTop: 8 }}>
+    <Container
+      component="main"
+      maxWidth="xs"
+      sx={{
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Paper elevation={3} sx={{ padding: 4 }}>
         <Typography component="h1" variant="h5">
           Login to Account
         </Typography>
@@ -78,7 +87,7 @@ const LoginForm = () => {
             {loading ? "Signing In..." : "Sign In"}
           </Button>
           <Box mt={2}>
-            <Button onClick={()=>navigate('/register')} variant="body2">
+            <Button onClick={() => navigate("/register")} variant="body2">
               Don't have an account? Register
             </Button>
           </Box>

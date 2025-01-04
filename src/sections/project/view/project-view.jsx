@@ -10,6 +10,8 @@ import {
   TableHead,
   Button,
   Box,
+  Container,
+  Typography,
 } from "@mui/material";
 import { applyFilters } from "../../../utils/filterUtil";
 import { Iconify } from "../../../components/iconify/iconify";
@@ -18,10 +20,10 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   deleteProject,
   fetchProjects,
-  updateProject,
 } from "../../../redux/thunks/projectThunk";
 import { showSuccess } from "../../../utils/toastUtil";
 import { resetState } from "../../../redux/slices/estimationSlice";
+import { EmptyState } from "../../../components/EmptyData/emptyData";
 
 const ProjectsView = () => {
   const columns = [
@@ -45,14 +47,7 @@ const ProjectsView = () => {
   });
   const { user } = useSelector((state) => state.auth);
   const { projects } = useSelector((state) => state.projects);
-  console.log("🚀 ~ ProjectsView ~ projects:", projects);
-  console.log("🚀 ~ ProjectsView ~ projects:", projects);
-  const data = [
-    { id: 1, name: "John", date: "2025-01-01", status: "active" },
-    { id: 2, name: "Jane", date: "2025-01-02", status: "inactive" },
-    { id: 3, name: "Doe", date: "2025-01-03", status: "active" },
-    // Add more rows here
-  ];
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -88,7 +83,13 @@ const ProjectsView = () => {
 
   return (
     <div>
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
         <ProjectFilter
           filters={filters}
           handleFilterChange={handleFilterChange}
@@ -106,24 +107,28 @@ const ProjectsView = () => {
           </Button>
         </Box>
       </Box>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <ProjectTableHeader columns={filters.columns} />
-          </TableHead>
-          <TableBody>
-            {filteredData.map((row, index) => (
-              <ProjectTableRow
-                key={index}
-                row={row}
-                columns={filters.columns}
-                handleEditClick={handleEditClick}
-                handleDeleteClick={handleDeleteClick}
-              />
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      {projects == 0 ? (
+        <EmptyState height={"66vh"} />
+      ) : (
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <ProjectTableHeader columns={filters.columns} />
+            </TableHead>
+            <TableBody>
+              {filteredData.map((row, index) => (
+                <ProjectTableRow
+                  key={index}
+                  row={row}
+                  columns={filters.columns}
+                  handleEditClick={handleEditClick}
+                  handleDeleteClick={handleDeleteClick}
+                />
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
     </div>
   );
 };

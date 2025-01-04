@@ -1,39 +1,56 @@
-import React from 'react';
-import { TextField, Button, Select, MenuItem, InputLabel, FormControl, Checkbox, ListItemText } from '@mui/material';
-import { handleColumnSelect } from '../../utils/filterUtil';
+import React from "react";
+import {
+  TextField,
+  Button,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+  Checkbox,
+  ListItemText,
+} from "@mui/material";
+import { handleColumnSelect } from "../../utils/filterUtil";
 
-const ProjectFilter = ({ filters, handleFilterChange, resetFilters,columns,setFilters }) => {
+const ProjectFilter = ({
+  filters,
+  handleFilterChange,
+  resetFilters,
+  columns,
+  setFilters,
+}) => {
   const handleColumnSelectWrapper = (event) => {
     handleColumnSelect(event, setFilters, columns); // Use updated helper function
   };
   return (
-    <div style={{ marginBottom: '20px' }}>
+    <div
+      style={{ marginBottom: "20px", display: "flex", alignItems: "center" }}
+    >
       <TextField
         label="Select Date"
         type="date"
-        value={filters.date || ''}
-        onChange={(e) => handleFilterChange('date', e.target.value)}
+        value={filters.date || ""}
+        onChange={(e) => handleFilterChange("date", e.target.value)}
         InputLabelProps={{
           shrink: true,
         }}
-        style={{ marginRight: '20px' }}
+        style={{ marginRight: "20px" }}
       />
-      <FormControl style={{ marginRight: '20px' }}>
+      <FormControl style={{ marginRight: "20px" }}>
         <InputLabel id="demo-simple-select-label">Status</InputLabel>
         <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"   
-            label="Status"     
-          value={filters.status || ''}
-          onChange={(e) => handleFilterChange('status', e.target.value)}
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          label="Status"
+          value={filters.status || ""}
+          onChange={(e) => handleFilterChange("status", e.target.value)}
         >
           <MenuItem value="all">All</MenuItem>
           <MenuItem value="active">Active</MenuItem>
           <MenuItem value="inactive">Inactive</MenuItem>
         </Select>
       </FormControl>
-        {/* Column Selection Filter */}
-        <FormControl>
+      {/* Column Selection Filter */}
+      <FormControl>
         <InputLabel>Columns</InputLabel>
         <Select
           multiple
@@ -41,11 +58,11 @@ const ProjectFilter = ({ filters, handleFilterChange, resetFilters,columns,setFi
           onChange={handleColumnSelectWrapper} // Pass the function to handle selection
           renderValue={(selected) => {
             if (selected.length > 2) {
-              return selected.slice(0, 2).join(', ') + '...';
+              return selected.slice(0, 2).join(", ") + "...";
             }
-            return selected.join(', ');  // Show selected columns
+            return selected.join(", "); // Show selected columns
           }}
-          label={'Columns'}
+          label={"Columns"}
         >
           {columns.map((column) => (
             <MenuItem key={column} value={column}>
@@ -56,7 +73,13 @@ const ProjectFilter = ({ filters, handleFilterChange, resetFilters,columns,setFi
         </Select>
       </FormControl>
 
-      <Button variant="outlined" onClick={resetFilters}>Reset</Button>
+      <Button
+        variant="outlined"
+        onClick={resetFilters}
+        sx={{ marginLeft: "12px" }}
+      >
+        Reset
+      </Button>
     </div>
   );
 };

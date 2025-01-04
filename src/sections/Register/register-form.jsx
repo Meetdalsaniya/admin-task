@@ -13,7 +13,11 @@ import { registerUser } from "../../redux/thunks/authThunk";
 import { showSuccess } from "../../utils/toastUtil";
 
 // Importing helper functions for validation
-import { validateEmail, validatePassword, validateName } from "../../utils/validationUtil";
+import {
+  validateEmail,
+  validatePassword,
+  validateName,
+} from "../../utils/validationUtil";
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -37,10 +41,16 @@ const RegisterForm = () => {
       setNameError(validateName(e.target.value) ? "" : "Name is required");
     }
     if (e.target.name === "email") {
-      setEmailError(validateEmail(e.target.value) ? "" : "Invalid email format");
+      setEmailError(
+        validateEmail(e.target.value) ? "" : "Invalid email format"
+      );
     }
     if (e.target.name === "password") {
-      setPasswordError(validatePassword(e.target.value) ? "" : "Password must be at least 6 characters long");
+      setPasswordError(
+        validatePassword(e.target.value)
+          ? ""
+          : "Password must be at least 6 characters long"
+      );
     }
     if (e.target.name === "confirmPassword") {
       setConfirmPasswordError(
@@ -78,8 +88,17 @@ const RegisterForm = () => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <Paper elevation={3} sx={{ padding: 4, marginTop: 8 }}>
+    <Container
+      component="main"
+      maxWidth="xs"
+      style={{
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Paper elevation={3} sx={{ padding: 4 }}>
         <Typography component="h1" variant="h5">
           Register Account
         </Typography>
@@ -131,16 +150,11 @@ const RegisterForm = () => {
             error={Boolean(confirmPasswordError)}
             helperText={confirmPasswordError}
           />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3 }}
-          >
+          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3 }}>
             Register
           </Button>
           <Box mt={2}>
-            <Button onClick={() => navigate('/login')} variant="body2">
+            <Button onClick={() => navigate("/login")} variant="body2">
               Already have an account? Sign In
             </Button>
           </Box>

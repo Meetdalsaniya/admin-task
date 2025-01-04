@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { calculateTotal } from "../../utils/helpersUtil";
+import { calculateTotals } from "../../utils/helpersUtil";
 import EstimatesItemRow from "./estimates-item-row";
 import {
   createEstimation,
@@ -35,6 +35,11 @@ const EstimatesCreateEditView = ({ current }) => {
   };
 
   const [sections, setSections] = useState([initialSection]);
+  const [totals, setTotals] = useState({
+    subTotal: 0,
+    totalMargin: 0,
+    totalAmount: 0,
+  });
 
   const { user } = useSelector((state) => state.auth);
 
@@ -46,6 +51,20 @@ const EstimatesCreateEditView = ({ current }) => {
       setSections(current.sections || [initialSection]);
     }
   }, [current]);
+
+  useEffect(() => {
+    const newTotals = sections.reduce(
+      (acc, section) => {
+        const sectionTotals = calculateTotals(section.items);
+        acc.subTotal += parseFloat(sectionTotals.subTotal);
+        acc.totalMargin += parseFloat(sectionTotals.totalMargin);
+        acc.totalAmount += parseFloat(sectionTotals.totalAmount);
+        return acc;
+      },
+      { subTotal: 0, totalMargin: 0, totalAmount: 0 }
+    );
+    setTotals(newTotals);
+  }, [sections]);
 
   const handleSectionAdd = () => {
     setSections([...sections, { ...initialSection }]);
@@ -71,10 +90,10 @@ const EstimatesCreateEditView = ({ current }) => {
 
   const handleChangeSubmit = async (e) => {
     e.preventDefault();
-    const totalEstimate = sections.reduce(
-      (acc, section) => acc + calculateTotal(section.items),
-      0
-    );
+    const totalEstimate = sections.reduce((acc, section) => {
+      const sectionTotals = calculateTotals(section.items);
+      return acc + parseFloat(sectionTotals.totalAmount);
+    }, 0);
     const editData = {
       sections,
       userId: user.id,
@@ -94,10 +113,10 @@ const EstimatesCreateEditView = ({ current }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const totalEstimate = sections.reduce(
-      (acc, section) => acc + calculateTotal(section.items),
-      0
-    );
+    const totalEstimate = sections.reduce((acc, section) => {
+      const sectionTotals = calculateTotals(section.items);
+      return acc + parseFloat(sectionTotals.totalAmount);
+    }, 0);
     const response = await dispatch(
       createEstimation({
         sections,
@@ -117,7 +136,8 @@ const EstimatesCreateEditView = ({ current }) => {
         Estimation Module
       </Typography>
       {sections.map((section, sectionIndex) => {
-        const sectionTotal = calculateTotal(section.items);
+        // const sectionTotal = calculateTotal(section.items);
+        const sectionTotal = calculateTotals(section.items);
         return (
           <Paper key={sectionIndex} style={{ padding: 20, marginBottom: 20 }}>
             <Grid2 container justifyContent="space-between" alignItems="center">
@@ -134,7 +154,9 @@ const EstimatesCreateEditView = ({ current }) => {
                 />
               </Grid2>
               <Grid2>
-                <Typography variant="h6">${sectionTotal.toFixed(2)}</Typography>
+                <Typography variant="h6">
+                  ${sectionTotal.totalAmount}
+                </Typography>
               </Grid2>
             </Grid2>
             <Box>
@@ -159,23 +181,68 @@ const EstimatesCreateEditView = ({ current }) => {
           </Paper>
         );
       })}
-      <Button
-        startIcon={<Iconify icon={"stash:plus-duotone"} />}
-        onClick={handleSectionAdd}
-        variant="outlined"
-      >
-        Add Section
-      </Button>
-      <Button
-        onClick={(e) => {
-          !current ? handleSubmit(e) : handleChangeSubmit(e);
-        }}
-        variant="contained"
-        color="primary"
-        style={{ marginLeft: 20 }}
-      >
-        {!current ? "Add Estimate" : "Save Change"}
-      </Button>
+      <Box sx={{ display: "flex", flexDirection: "column", alignItems: "end" }}>
+        <Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              width: "300px",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="h6" sx={{ marginTop: "12px" }}>
+              Sub Total:
+            </Typography>
+            <Typography>${totals.subTotal.toFixed(2)}</Typography>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              width: "300px",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="h6" sx={{ marginTop: "12px" }}>
+              Total Margin:
+            </Typography>
+            <Typography>${totals.totalMargin.toFixed(2)}</Typography>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              width: "300px",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="h6" sx={{ marginTop: "12px" }}>
+              Total Amount:
+            </Typography>
+            <Typography>${totals.totalAmount.toFixed(2)}</Typography>
+          </Box>
+        </Box>
+        <Box sx={{ marginTop: "18px" }}>
+          <Button
+            startIcon={<Iconify icon={"stash:plus-duotone"} />}
+            onClick={handleSectionAdd}
+            variant="outlined"
+          >
+            Add Section
+          </Button>
+          <Button
+            onClick={(e) => {
+              !current ? handleSubmit(e) : handleChangeSubmit(e);
+            }}
+            variant="contained"
+            color="primary"
+            style={{ marginLeft: 20 }}
+          >
+            {!current ? "Add Estimate" : "Save Change"}
+          </Button>
+        </Box>
+      </Box>
     </Container>
   );
 };

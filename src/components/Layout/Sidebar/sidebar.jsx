@@ -11,7 +11,6 @@ import { Link, useLocation } from "react-router-dom";
 import SideBarItems from "./sidebarItems";
 import LogoutButton from "./logoutButton";
 
-
 const Sidebar = ({ isOpen }) => {
   const drawerWidth = isOpen ? 240 : 60;
   const location = useLocation();
@@ -27,7 +26,7 @@ const Sidebar = ({ isOpen }) => {
           boxSizing: "border-box",
           transition: "width 0.3s ease",
         },
-        position:"absolute"
+        position: "absolute",
       }}
     >
       <Box sx={{ overflow: "hidden" }}>
@@ -44,39 +43,41 @@ const Sidebar = ({ isOpen }) => {
         </Box>
         <List>
           {SideBarItems.map((item, index) => {
-            const isActive = location.pathname === item.path;
+            const isRoot = location.pathname === "/";
+            const isActive =
+              (location.pathname.startsWith(item.path) && item.path !== "/") ||
+              (isRoot && item.path === "/");
 
             return (
-              <Box sx={{marginX:"5px"}}>
-
-              <ListItem
-                button
-                key={index}
-                component={Link}
-                to={item.path}
-                sx={{
-                  justifyContent: isOpen ? "flex-start" : "center",
-                  backgroundColor: isActive ? "#1976d2" : "transparent",
-                  color: isActive ? "white" : "inherit",
-                  borderRadius: "8px",
-             
-                  marginY: "4px",
-                  "&:hover": {
-                    backgroundColor: isActive ? "#1565c0" : "#f4f4f4",
-                  },
-                }}
-              >
-                <ListItemIcon
+              <Box sx={{ marginX: "5px" }}>
+                <ListItem
+                  button
+                  key={index}
+                  component={Link}
+                  to={item.path}
                   sx={{
-                    minWidth: "28px",
-                    justifyContent: "center",
+                    justifyContent: isOpen ? "flex-start" : "center",
+                    backgroundColor: isActive ? "#1976d2" : "transparent",
                     color: isActive ? "white" : "inherit",
+                    borderRadius: "8px",
+
+                    marginY: "4px",
+                    "&:hover": {
+                      backgroundColor: isActive ? "#1565c0" : "#f4f4f4",
+                    },
                   }}
                 >
-                  {item.icon}
-                </ListItemIcon>
-                {isOpen && <ListItemText primary={item.text} />}
-              </ListItem>
+                  <ListItemIcon
+                    sx={{
+                      minWidth: "28px",
+                      justifyContent: "center",
+                      color: isActive ? "white" : "inherit",
+                    }}
+                  >
+                    {item.icon}
+                  </ListItemIcon>
+                  {isOpen && <ListItemText primary={item.text} />}
+                </ListItem>
               </Box>
             );
           })}
