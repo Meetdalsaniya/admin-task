@@ -1,11 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  loginUser,
-  logoutUser,
-  loadUser,
-  registerUser,
-} from "../thunks/authThunk";
-import {
   createProject,
   deleteProject,
   fetchProjectById,
@@ -18,45 +12,54 @@ const initialState = { projects: [], loading: false, error: null };
 const projectSlice = createSlice({
   name: "projects",
   initialState,
-  reducers: {},
+  reducers: {
+    clearErrors: (state) => {},
+    resetState: (state) => {},
+  },
   extraReducers: (builder) => {
     builder
+      // Project Create
       .addCase(createProject.pending, (state) => {
         state.loading = true;
       })
       .addCase(createProject.fulfilled, (state, action) => {
         state.loading = false;
-        state.projects.push(action.payload); // Add new project to the list
+        state.projects.push(action.payload);
         state.error = null;
       })
       .addCase(createProject.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })
+
+      // Project List
       .addCase(fetchProjects.pending, (state) => {
         state.loading = true;
       })
       .addCase(fetchProjects.fulfilled, (state, action) => {
         state.loading = false;
-        state.projects = action.payload; // Update the list of projects
+        state.projects = action.payload;
         state.error = null;
       })
       .addCase(fetchProjects.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })
+
+      // Project By ID
       .addCase(fetchProjectById.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(fetchProjectById.fulfilled, (state, action) => {
         state.loading = false;
-        // Do not store the project in the global state, just complete the action
       })
       .addCase(fetchProjectById.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })
+
+      // Project Edit
       .addCase(updateProject.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -75,6 +78,8 @@ const projectSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
+
+      // Project Delete
       .addCase(deleteProject.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -91,6 +96,6 @@ const projectSlice = createSlice({
       });
   },
 });
-export const { clearErrors, resetState, setAuthData } = projectSlice.actions;
+export const { clearErrors, resetState } = projectSlice.actions;
 
 export default projectSlice.reducer;

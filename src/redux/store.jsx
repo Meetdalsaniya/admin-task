@@ -12,12 +12,12 @@ import {
 import storage from "./custom_store"; // Adjust path as necessary
 import authSlice from "./slices/authSlice"; // Adjust path as necessary
 import projectSlice from "./slices/projectSlice"; // Adjust path as necessary
-
+import estimations from "./slices/estimationSlice";
 
 const rootReducer = combineReducers({
   auth: authSlice,
   projects: projectSlice,
-
+  estimations: estimations,
 });
 
 const persistConfig = {

@@ -56,6 +56,13 @@
       "email": "abcd@yopmail.com",
       "password": "Test@123",
       "confirmPassword": "Test@123"
+    },
+    {
+      "id": "cbe4",
+      "name": "Chirag",
+      "email": "chirag@gmail.com",
+      "password": "Password@123",
+      "confirmPassword": "Password@123"
     }
   ],
   "projects": [
@@ -76,7 +83,131 @@
       "id": "2cde"
     }
   ],
-  "profile": {
-    "name": "typicode"
-  }
+  "estimation": [
+    {
+      "sections": [
+        {
+          "title": "New Section",
+          "items": [
+            {
+              "title": "grgrgrg",
+              "description": "",
+              "unit": "rgrgrggr",
+              "quantity": 1116,
+              "price": 100,
+              "margin": 100
+            }
+          ]
+        }
+      ],
+      "userId": "008b",
+      "clinetname": "Meet",
+      "total": 223200,
+      "id": "6901"
+    },
+    {
+      "id": "36e4",
+      "sections": [
+        {
+          "title": "New Section",
+          "items": [
+            {
+              "title": "a",
+              "description": "",
+              "unit": "a",
+              "quantity": 10,
+              "price": 10,
+              "margin": 10
+            }
+          ]
+        }
+      ],
+      "userId": "cbe4",
+      "clinetname": "Meet"
+    },
+    {
+      "id": "aec2",
+      "sections": [
+        {
+          "title": "New Section",
+          "items": [
+            {
+              "title": "avcdcdc",
+              "description": "",
+              "unit": "dwddwe",
+              "quantity": 20,
+              "price": 20,
+              "margin": 100
+            }
+          ]
+        }
+      ],
+      "userId": "cbe4",
+      "clinetname": "Meet",
+      "total": 800
+    },
+    {
+      "id": "b08c",
+      "sections": [
+        {
+          "title": "New Section",
+          "items": [
+            {
+              "title": "a",
+              "description": "",
+              "unit": "a",
+              "quantity": 100,
+              "price": 10,
+              "margin": 1
+            },
+            {
+              "title": "abcd",
+              "description": "",
+              "unit": "cdc",
+              "quantity": 15,
+              "price": 15,
+              "margin": 15
+            }
+          ]
+        },
+        {
+          "title": "New Section 2",
+          "items": [
+            {
+              "title": "abcd",
+              "description": "",
+              "unit": "dsdwd",
+              "quantity": 15,
+              "price": 1515,
+              "margin": 1515
+            }
+          ]
+        }
+      ],
+      "userId": "cbe4",
+      "clinetname": "Meet",
+      "total": 368277.49999999994
+    },
+    {
+      "id": "0e66",
+      "sections": [
+        {
+          "title": "New Section",
+          "items": [
+            {
+              "title": "accaca",
+              "description": "",
+              "unit": "121",
+              "quantity": 120,
+              "price": 121,
+              "margin": 121
+            }
+          ]
+        }
+      ],
+      "userId": "cbe4",
+      "clinetname": "Meet",
+      "total": 32089.2
+    }
+  ]
 }

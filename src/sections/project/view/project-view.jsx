@@ -21,6 +21,7 @@ import {
   updateProject,
 } from "../../../redux/thunks/projectThunk";
 import { showSuccess } from "../../../utils/toastUtil";
+import { resetState } from "../../../redux/slices/estimationSlice";
 
 const ProjectsView = () => {
   const columns = [
@@ -80,7 +81,8 @@ const ProjectsView = () => {
 
   useEffect(() => {
     if (user) {
-      dispatch(fetchProjects(user.id)); // Fetch projects for the logged-in user
+      dispatch(fetchProjects(user.id));
+      dispatch(resetState()); // Fetch projects for the logged-in user
     }
   }, [user, dispatch]);
 

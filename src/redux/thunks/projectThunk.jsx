@@ -62,7 +62,7 @@ export const updateProject = createAsyncThunk(
   }
 );
 
-// Async thunk to fetch projects for a user
+// projects delete
 export const deleteProject = createAsyncThunk(
   "projects/deleteProject",
   async (id, { rejectWithValue }) => {
