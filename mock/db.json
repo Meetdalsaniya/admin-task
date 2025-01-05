@@ -65,37 +65,33 @@
       "confirmPassword": "Password@123"
     }
   ],
-  "projects": [],
+  "projects": [
+    {
+      "id": "7317",
+      "customerName": "Dushyant Khoda",
+      "referenceNumber": "2324",
+      "projectName": "Project 1",
+      "projectNumber": "123456789",
+      "areaLocation": "Ahmedabad",
+      "address": "cvcvcv",
+      "dueDate": "2025-01-07",
+      "contact": "1234567890",
+      "manager": "dushyant",
+      "staff": "xcvgbn",
+      "status": "active",
+      "email": "meet@yopmail.com",
+      "userId": "cbe4"
+    }
+  ],
   "estimation": [
     {
-      "id": "36e4",
-      "sections": [
-        {
-          "title": "New Section",
-          "items": [
-            {
-              "title": "a",
-              "description": "",
-              "unit": "a",
-              "quantity": 10,
-              "price": 10,
-              "margin": 10
-            }
-          ]
-        }
-      ],
-      "userId": "cbe4",
-      "clinetname": "Meet"
-    },
-    {
-      "id": "aec2",
       "sections": [
         {
           "title": "New Section",
           "items": [
             {
               "title": "avcdcdc",
-              "description": "",
+              "description": "asdfg",
               "unit": "dwddwe",
               "quantity": 20,
               "price": 20,
@@ -106,10 +102,10 @@
       ],
       "userId": "cbe4",
       "clinetname": "Meet",
-      "total": 800
+      "total": 800,
+      "id": "aec2"
     },
     {
-      "id": "b08c",
       "sections": [
         {
           "title": "New Section",
@@ -134,42 +130,13 @@
         },
         {
           "title": "New Section 2",
-          "items": [
-            {
-              "title": "abcd",
-              "description": "",
-              "unit": "dsdwd",
-              "quantity": 15,
-              "price": 1515,
-              "margin": 1515
-            }
-          ]
+          "items": []
         }
       ],
       "userId": "cbe4",
       "clinetname": "Meet",
-      "total": 368277.49999999994
-    },
-    {
-      "id": "0e66",
-      "sections": [
-        {
-          "title": "New Section",
-          "items": [
-            {
-              "title": "accaca",
-              "description": "",
-              "unit": "121",
-              "quantity": 120,
-              "price": 121,
-              "margin": 121
-            }
-          ]
-        }
-      ],
-      "userId": "cbe4",
-      "clinetname": "Meet",
-      "total": 32089.2
+      "total": 1268.75,
+      "id": "b08c"
     }
   ]
 }

@@ -29,7 +29,7 @@ const DashboardChart = ({ data, labels }) => {
   return (
     <Box>
       <Typography variant="h6">Sales Details</Typography>
-      <Box sx={{ width: "100%", height: "550px" }}>
+      <Box sx={{ width: "98%", height: "500px" }}>
         <Line data={chartData} options={options} />
       </Box>
     </Box>

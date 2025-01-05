@@ -86,7 +86,7 @@ const EstimatesView = () => {
                 <TableRow key={index}>
                   <TableCell>{index + 1}</TableCell>
                   <TableCell>{estimation?.clinetname}</TableCell>
-                  <TableCell>${estimation?.total}</TableCell>
+                  <TableCell>${Math.round(estimation?.total)}</TableCell>
                   <TableCell>
                     <Button
                       color="primary"

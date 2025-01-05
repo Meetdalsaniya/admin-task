@@ -33,7 +33,7 @@ const Sidebar = ({ isOpen }) => {
         <Box
           sx={{
             display: "flex",
-            justifyContent: isOpen ? "center" : "flex-start",
+            justifyContent: isOpen ? "center" : "center",
             alignItems: "center",
             height: "64px",
             p: 1,

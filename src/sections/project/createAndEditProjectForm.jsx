@@ -9,6 +9,7 @@ import {
   FormHelperText,
   Box,
   Grid,
+  Typography,
 } from "@mui/material";
 import {
   validateEmail,
@@ -160,6 +161,13 @@ const CreateAndEditProjectForm = ({ currunt }) => {
     setErrors(formErrors);
   };
 
+  const isFormValid = () => {
+    return (
+      Object.values(formData).every((field) => field !== "") &&
+      Object.values(errors).every((err) => !err)
+    );
+  };
+
   const handleEditSubmit = (e, id) => {
     e.preventDefault();
     let isValid = true;
@@ -217,6 +225,11 @@ const CreateAndEditProjectForm = ({ currunt }) => {
 
   return (
     <Box sx={{ padding: 3 }}>
+      <Box>
+        <Typography variant="h5" fontWeight={700} mb={2}>
+          {currunt ? "Edit Project" : "Create project"}
+        </Typography>
+      </Box>
       <form>
         <Grid container spacing={3}>
           {/* Customer Name */}
@@ -363,10 +376,8 @@ const CreateAndEditProjectForm = ({ currunt }) => {
                 name="status"
                 label="Status"
               >
-                <MenuItem value="">Select Status</MenuItem>
                 <MenuItem value="active">Active</MenuItem>
                 <MenuItem value="inactive">Inactive</MenuItem>
-                <MenuItem value="completed">Completed</MenuItem>
               </Select>
               <FormHelperText>{errors.status}</FormHelperText>
             </FormControl>
@@ -392,6 +403,7 @@ const CreateAndEditProjectForm = ({ currunt }) => {
               variant="contained"
               color="primary"
               sx={{ marginRight: 2 }}
+              disabled={!isFormValid()}
               onClick={(e) => {
                 currunt ? handleEditSubmit(e, currunt.id) : handleSubmit(e);
               }}
