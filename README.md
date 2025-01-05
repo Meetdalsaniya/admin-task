@@ -61,7 +61,7 @@ npx json-server mock/db.json --port 8080
 **Start the server**:
 
 ```bash
-npm run server
+npx json-server mock/db.json --port 8080
 ```
 
 Mock API URL: `http://localhost:8080`
