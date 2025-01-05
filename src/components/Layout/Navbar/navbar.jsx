@@ -26,12 +26,17 @@ const Navbar = ({ isSidebarOpen, toggleSidebar }) => {
       }}
     >
       <Toolbar>
-        <IconButton edge="start" onClick={toggleSidebar} sx={{ marginRight: 2 }}>
-        <Iconify icon={'bx:menu'}/>
+        <IconButton
+          edge="start"
+          onClick={toggleSidebar}
+          sx={{ marginRight: 2 }}
+        >
+          <Iconify icon={"bx:menu"} />
         </IconButton>
         <Box sx={{ flexBasis: "300px" }}>
           <GlobalSearch />
         </Box>
+
         <Box sx={{ ml: "auto" }}>
           <UserProfile />
         </Box>

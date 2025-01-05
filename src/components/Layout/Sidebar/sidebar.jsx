@@ -7,13 +7,14 @@ import {
   ListItemText,
   Box,
 } from "@mui/material";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import SideBarItems from "./sidebarItems";
 import LogoutButton from "./logoutButton";
 
 const Sidebar = ({ isOpen }) => {
   const drawerWidth = isOpen ? 240 : 60;
   const location = useLocation();
+  const navigate = useNavigate();
 
   return (
     <Drawer
@@ -37,7 +38,9 @@ const Sidebar = ({ isOpen }) => {
             alignItems: "center",
             height: "64px",
             p: 1,
+            cursor: "pointer",
           }}
+          onClick={() => navigate("/")}
         >
           {isOpen ? "Logo" : "L"}
         </Box>

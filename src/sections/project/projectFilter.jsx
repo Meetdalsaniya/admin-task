@@ -22,9 +22,7 @@ const ProjectFilter = ({
     handleColumnSelect(event, setFilters, columns); // Use updated helper function
   };
   return (
-    <div
-      style={{ marginBottom: "20px", display: "flex", alignItems: "center" }}
-    >
+    <div style={{ margin: "auto 0", display: "flex", alignItems: "center" }}>
       <TextField
         label="Select Date"
         type="date"

@@ -10,6 +10,7 @@ import {
   Box,
   Grid,
   Typography,
+  useTheme,
 } from "@mui/material";
 import {
   validateEmail,
@@ -24,6 +25,7 @@ import { showSuccess } from "../../utils/toastUtil";
 
 const CreateAndEditProjectForm = ({ currunt }) => {
   const { user } = useSelector((state) => state.auth);
+  const theme = useTheme(); // Access MUI theme
   const [formData, setFormData] = useState({
     customerName: "",
     referenceNumber: "",
@@ -224,7 +226,15 @@ const CreateAndEditProjectForm = ({ currunt }) => {
   };
 
   return (
-    <Box sx={{ padding: 3 }}>
+    <Box
+      sx={{
+        backgroundColor: theme.palette.background.default,
+        boxShadow: theme.shadows[3],
+        padding: "25px",
+        borderRadius: "15px",
+        marginTop: "10px",
+      }}
+    >
       <Box>
         <Typography variant="h5" fontWeight={700} mb={2}>
           {currunt ? "Edit Project" : "Create project"}

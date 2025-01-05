@@ -11,6 +11,7 @@ import RegisterView from "./sections/Register/view/register-view";
 import { checkAuthStatus } from "./redux/thunks/authThunk";
 import ProtectedRoute from "./components/ProtectedRoute/protectedRoute";
 import PrivateRoute from "./routes/privateRoute";
+import ForgetForm from "./sections/Forget/forget-form";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const App = () => {
         {/* Public Routes for Login and Register */}
         <Route path="/login" element={<LoginView />} />
         <Route path="/register" element={<RegisterView />} />
+        <Route path="/forget" element={<ForgetForm />} />
 
         {/* Protected Layout Routes */}
         <Route path="/" element={<Layout />}>

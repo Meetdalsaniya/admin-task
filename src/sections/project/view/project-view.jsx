@@ -10,8 +10,7 @@ import {
   TableHead,
   Button,
   Box,
-  Container,
-  Typography,
+  useTheme,
 } from "@mui/material";
 import { applyFilters } from "../../../utils/filterUtil";
 import { Iconify } from "../../../components/iconify/iconify";
@@ -45,11 +44,13 @@ const ProjectsView = () => {
     status: "all",
     columns: [...columns],
   });
+
   const { user } = useSelector((state) => state.auth);
   const { projects } = useSelector((state) => state.projects);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const theme = useTheme(); // Access MUI theme
 
   const handleFilterChange = (filterName, value) => {
     setFilters((prevFilters) => ({
@@ -71,13 +72,13 @@ const ProjectsView = () => {
   const handleDeleteClick = (id) => {
     dispatch(deleteProject(id)).then(() => {
       showSuccess("Project Delete successful!");
-    }); // Dispatch delete action
+    });
   };
 
   useEffect(() => {
     if (user) {
       dispatch(fetchProjects(user.id));
-      dispatch(resetState()); // Fetch projects for the logged-in user
+      dispatch(resetState());
     }
   }, [user, dispatch]);
 
@@ -88,6 +89,10 @@ const ProjectsView = () => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
+          backgroundColor: theme.palette.background.paper,
+          padding: 2,
+          borderRadius: 2,
+          boxShadow: theme.shadows[3],
         }}
       >
         <ProjectFilter
@@ -110,7 +115,15 @@ const ProjectsView = () => {
       {projects == 0 ? (
         <EmptyState height={"66vh"} />
       ) : (
-        <TableContainer component={Paper}>
+        <TableContainer
+          component={Paper}
+          sx={{
+            backgroundColor: theme.palette.background.default,
+            boxShadow: theme.shadows[3],
+            mt: "20px",
+            borderRadius: "15px",
+          }}
+        >
           <Table>
             <TableHead>
               <ProjectTableHeader columns={filters.columns} />

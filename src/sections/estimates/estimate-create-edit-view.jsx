@@ -7,6 +7,7 @@ import {
   Paper,
   TextField,
   Typography,
+  useTheme,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -46,6 +47,7 @@ const EstimatesCreateEditView = ({ current }) => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const theme = useTheme();
 
   useEffect(() => {
     if (current) {
@@ -151,7 +153,17 @@ const EstimatesCreateEditView = ({ current }) => {
         // const sectionTotal = calculateTotal(section.items);
         const sectionTotal = calculateTotals(section.items);
         return (
-          <Paper key={sectionIndex} style={{ padding: 20, marginBottom: 20 }}>
+          <Paper
+            key={sectionIndex}
+            sx={{
+              backgroundColor: theme.palette.background.default,
+              boxShadow: theme.shadows[3],
+              padding: "25px",
+              borderRadius: "15px",
+              marginTop: "10px",
+            }}
+            style={{ padding: 20, marginBottom: 20 }}
+          >
             <Grid2 container justifyContent="space-between" alignItems="center">
               <Grid2>
                 <TextField

@@ -62,6 +62,17 @@ const LoginForm = () => {
             value={formData.email}
             onChange={handleChange}
           />
+          <Box
+            sx={{ display: "flex", justifyContent: "end", marginTop: "5px" }}
+          >
+            <Button
+              onClick={() => navigate("/forget")}
+              variant="body2"
+              sx={{ padding: "0", color: "#1976d2" }}
+            >
+              Forget Password?
+            </Button>
+          </Box>
           <TextField
             margin="normal"
             required

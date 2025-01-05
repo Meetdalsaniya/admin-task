@@ -38,7 +38,15 @@ const Layout = () => {
         <Navbar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
         {/* Main Content */}
-        <Box sx={{ flexGrow: 1, p: 3, overflowY: "auto", marginTop: "64px" }}>
+        <Box
+          sx={{
+            flexGrow: 1,
+            p: 3,
+            overflowY: "auto",
+            marginTop: "64px",
+            background: "#acacac14",
+          }}
+        >
           <Outlet />
         </Box>
       </Box>

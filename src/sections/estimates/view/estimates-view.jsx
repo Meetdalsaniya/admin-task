@@ -9,6 +9,7 @@ import {
   TableHead,
   TableRow,
   Typography,
+  useTheme,
 } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,6 +26,7 @@ import { EmptyState } from "../../../components/EmptyData/emptyData";
 const EstimatesView = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const theme = useTheme();
   const { estimations, loading } = useSelector((state) => state.estimations);
   const { user } = useSelector((state) => state.auth);
   console.log(estimations);
@@ -56,7 +58,7 @@ const EstimatesView = () => {
             marginBottom: "15px",
           }}
         >
-          <Typography>Estimates</Typography>
+          <Typography fontSize={"1.25rem"}>Estimates</Typography>
           <Button
             variant="contained"
             onClick={() => navigate("/estimates/create")}
@@ -71,7 +73,16 @@ const EstimatesView = () => {
           <EmptyState />
         </>
       ) : (
-        <TableContainer component={Paper}>
+        <TableContainer
+          sx={{
+            backgroundColor: theme.palette.background.default,
+            boxShadow: theme.shadows[3],
+
+            borderRadius: "15px",
+            marginTop: "10px",
+          }}
+          component={Paper}
+        >
           <Table>
             <TableHead>
               <TableRow>
