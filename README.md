@@ -40,7 +40,7 @@ git clone <repository-url>
 cd <repository-folder>
 
 # Switch to Node version 20.18.0
-nvm use 20.18.0
+nvm use 20.18.1
 
 # Install dependencies
 npm install  # or yarn install
@@ -156,7 +156,7 @@ MY-REACT-VITE-APP/
 Start the mock API:
 
 ```bash
-npm run server
+npx json-server mock/db.json --port 8080
 ```
 
 Example API endpoints:
