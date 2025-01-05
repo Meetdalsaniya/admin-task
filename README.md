@@ -174,7 +174,6 @@ Example API endpoints:
 - **Component-Driven Architecture**: Reusable components for forms, tables, and modals.
 - **State Management**: Redux Toolkit for efficient and scalable global state management.
 - **Routing**: React Router for navigation.
-- **Forms**: Formik and Yup for validation.
 
 ---
 
