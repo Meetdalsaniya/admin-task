@@ -57,6 +57,22 @@
       "status": "active",
       "email": "meet@yopmail.com",
       "userId": "cbe4"
+    },
+    {
+      "customerName": "Dushyant Khoda",
+      "referenceNumber": "2324",
+      "projectName": "Project 1",
+      "projectNumber": "123456",
+      "areaLocation": "wert",
+      "address": "sdfg",
+      "dueDate": "2025-01-01",
+      "contact": "1234567890",
+      "manager": "dushyant",
+      "staff": "React js",
+      "status": "active",
+      "email": "meet@yopmail.com",
+      "userId": "008b",
+      "id": "fd14"
     }
   ],
   "estimation": [
@@ -92,6 +108,40 @@
       "clinetname": "Meet",
       "total": 1268.75,
       "id": "b08c"
+    },
+    {
+      "sections": [
+        {
+          "title": "New Section 1",
+          "items": [
+            {
+              "title": "a",
+              "description": "b",
+              "unit": "adw",
+              "quantity": 10,
+              "price": 10,
+              "margin": 1
+            }
+          ]
+        },
+        {
+          "title": "New Section 2",
+          "items": [
+            {
+              "title": "b",
+              "description": "b",
+              "unit": "b",
+              "quantity": 10,
+              "price": 10,
+              "margin": 10
+            }
+          ]
+        }
+      ],
+      "userId": "008b",
+      "clinetname": "meet",
+      "total": 211,
+      "id": "7c71"
     }
   ]
 }
