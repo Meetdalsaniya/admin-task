@@ -10,8 +10,6 @@ const EstimateEditView = () => {
   const [estimate, setEstimate] = useState("");
   const [loading, setLoading] = useState(false);
 
-  console.log(estimate, "estimateestimate");
-
   useEffect(() => {
     if (id) {
       const getProject = async () => {

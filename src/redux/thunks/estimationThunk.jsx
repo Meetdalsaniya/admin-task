@@ -21,12 +21,10 @@ export const createEstimation = createAsyncThunk(
 export const fetchEstimations = createAsyncThunk(
   "estimations/fetchEstimations",
   async (id, { rejectWithValue }) => {
-    debugger;
     try {
       const response = await axios.get(
         `http://localhost:8080/estimation?userId=${id}`
       );
-      console.log(response);
 
       return response.data;
     } catch (error) {
@@ -59,7 +57,6 @@ export const updateEstimation = createAsyncThunk(
         `http://localhost:8080/estimation/${id}`,
         sections
       );
-      debugger;
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -74,7 +71,6 @@ export const deleteEstimation = createAsyncThunk(
       const response = await axios.delete(
         `http://localhost:8080/estimation/${id}`
       );
-      console.log("🚀 ~ response:", response);
       return response.data; // Return the fetched projects
     } catch (error) {
       return rejectWithValue(error.message);

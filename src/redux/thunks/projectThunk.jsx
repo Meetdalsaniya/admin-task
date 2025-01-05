@@ -47,14 +47,12 @@ export const fetchProjects = createAsyncThunk(
 export const updateProject = createAsyncThunk(
   "projects/updateProject",
   async ({ id, projectData }, { rejectWithValue }) => {
-    console.log(projectData);
-
     try {
       const response = await axios.put(
         `http://localhost:8080/projects/${id}`,
         projectData
       );
-      console.log("🚀 ~ response:", response);
+
       return response.data; // Return the fetched projects
     } catch (error) {
       return rejectWithValue(error.message);
@@ -70,7 +68,7 @@ export const deleteProject = createAsyncThunk(
       const response = await axios.delete(
         `http://localhost:8080/projects/${id}`
       );
-      console.log("🚀 ~ response:", response);
+
       return response.data; // Return the fetched projects
     } catch (error) {
       return rejectWithValue(error.message);

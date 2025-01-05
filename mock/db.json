@@ -39,6 +39,13 @@
       "email": "chirag@gmail.com",
       "password": "Password@123",
       "confirmPassword": "Password@123"
+    },
+    {
+      "id": "963d",
+      "name": "Meet Dalsaniya",
+      "email": "meet40@yopmail.com",
+      "password": "Test@123",
+      "confirmPassword": "Test@123"
     }
   ],
   "projects": [

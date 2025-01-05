@@ -2,17 +2,16 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-
-
 // Async thunk for user registration (doesn't store user in Redux)
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (userData, { rejectWithValue }) => {
-    console.log("🚀 ~ userData:", userData)
     try {
-      const response = await axios.post("http://localhost:8080/users", userData);
-      console.log("🚀 ~ response:", response)
-      return response.data.message;  // Return success message only
+      const response = await axios.post(
+        "http://localhost:8080/users",
+        userData
+      );
+      return response.data.message; // Return success message only
     } catch (error) {
       return rejectWithValue(error.response.data.message);
     }
@@ -60,7 +59,6 @@ export const loadUser = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await axios.get(`/api/v1/dashboard/profile`);
-      console.log(data, "user Profile ");
 
       return data.data;
     } catch (error) {

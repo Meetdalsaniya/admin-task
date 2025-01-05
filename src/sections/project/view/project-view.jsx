@@ -21,7 +21,6 @@ import {
   fetchProjects,
 } from "../../../redux/thunks/projectThunk";
 import { showSuccess } from "../../../utils/toastUtil";
-import { resetState } from "../../../redux/slices/estimationSlice";
 import { EmptyState } from "../../../components/EmptyData/emptyData";
 
 const ProjectsView = () => {
@@ -78,7 +77,6 @@ const ProjectsView = () => {
   useEffect(() => {
     if (user) {
       dispatch(fetchProjects(user.id));
-      dispatch(resetState());
     }
   }, [user, dispatch]);
 

@@ -10,7 +10,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../redux/thunks/authThunk";
 import { useNavigate } from "react-router-dom";
-import { showSuccess } from "../../utils/toastUtil";
+import { showError, showSuccess } from "../../utils/toastUtil";
 import {
   validateEmail,
   validatePassword,
@@ -85,12 +85,16 @@ const LoginForm = () => {
       return;
     }
 
-    dispatch(loginUser(formData)).then((res) => {
-      if (res.meta.requestStatus === "fulfilled") {
-        navigate("/");
-        showSuccess("User Login successful!");
-      }
-    });
+    dispatch(loginUser(formData))
+      .then((res) => {
+        if (res.meta.requestStatus === "fulfilled") {
+          navigate("/");
+          showSuccess("User Login successful!");
+        }
+      })
+      .catch((error) => {
+        showError("Login failed. Please check your credentials.");
+      });
   };
 
   return (

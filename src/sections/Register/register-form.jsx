@@ -11,8 +11,6 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../redux/thunks/authThunk";
 import { showSuccess } from "../../utils/toastUtil";
-
-// Importing helper functions for validation
 import {
   validateEmail,
   validatePassword,
@@ -28,7 +26,6 @@ const RegisterForm = () => {
     password: "",
     confirmPassword: "",
   });
-  const [error, setError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
@@ -74,12 +71,10 @@ const RegisterForm = () => {
       return;
     }
     if (formData.password === formData.confirmPassword) {
-      setError("");
       dispatch(registerUser(formData)).then((res) => {
         if (res.meta.requestStatus === "fulfilled") {
           navigate("/login");
           showSuccess("User Registered successful!");
-          console.log("User Registered");
         }
       });
     } else {

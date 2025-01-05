@@ -18,7 +18,6 @@ import {
   fetchEstimations,
 } from "../../../redux/thunks/estimationThunk";
 import { useNavigate } from "react-router-dom";
-import { resetState } from "../../../redux/slices/estimationSlice";
 import { Iconify } from "../../../components/iconify/iconify";
 import { showSuccess } from "../../../utils/toastUtil";
 import { EmptyState } from "../../../components/EmptyData/emptyData";
@@ -29,7 +28,6 @@ const EstimatesView = () => {
   const theme = useTheme();
   const { estimations, loading } = useSelector((state) => state.estimations);
   const { user } = useSelector((state) => state.auth);
-  console.log(estimations);
 
   const handelEdit = (e, id) => {
     e.preventDefault();

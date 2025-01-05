@@ -1,10 +1,13 @@
-import React from 'react';
-import { TableCell, TableRow, IconButton } from '@mui/material';
-import { Iconify } from '../../components/iconify/iconify';
+import React from "react";
+import { TableCell, TableRow, IconButton } from "@mui/material";
+import { Iconify } from "../../components/iconify/iconify";
 
-
-const ProjectTableRow = ({ row, columns, handleEditClick, handleDeleteClick }) => {
-  console.log("🚀 ~ ProjectTableRow ~ columns:", columns)
+const ProjectTableRow = ({
+  row,
+  columns,
+  handleEditClick,
+  handleDeleteClick,
+}) => {
   return (
     <TableRow>
       {/* Display project data for each column */}
@@ -14,10 +17,10 @@ const ProjectTableRow = ({ row, columns, handleEditClick, handleDeleteClick }) =
           return (
             <TableCell key={column}>
               <IconButton onClick={() => handleEditClick(row.id)}>
-                <Iconify icon={'raphael:edit'} />
+                <Iconify icon={"raphael:edit"} />
               </IconButton>
               <IconButton onClick={() => handleDeleteClick(row.id)}>
-                <Iconify icon={'material-symbols:delete'} />
+                <Iconify icon={"material-symbols:delete"} />
               </IconButton>
             </TableCell>
           );
