@@ -32,7 +32,6 @@ const RegisterForm = () => {
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [nameError, setNameError] = useState("");
-  const [userList,setUserList] = useState([])
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
