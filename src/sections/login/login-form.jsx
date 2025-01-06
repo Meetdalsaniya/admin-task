@@ -47,8 +47,6 @@ const LoginForm = () => {
       case "password":
         error = !validateRequired(value)
           ? "This field is required."
-          : !validatePassword(value)
-          ? "Password must be at least 6 characters."
           : "";
         break;
       default:
@@ -73,8 +71,7 @@ const LoginForm = () => {
 
     const passwordError = !validateRequired(formData.password)
       ? "This field is required."
-      : !validatePassword(formData.password)
-      ? "Password must be at least 6 characters."
+  
       : "";
 
     if (emailError || passwordError) {
@@ -159,7 +156,7 @@ const LoginForm = () => {
             fullWidth
             variant="contained"
             sx={{ mt: 3 }}
-            disabled={loading}
+            disabled={loading ||!formData.email ||!formData.password || errors.email ||errors.password}
           >
             {loading ? "Signing In..." : "Sign In"}
           </Button>

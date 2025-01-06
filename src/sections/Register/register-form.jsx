@@ -145,7 +145,19 @@ const RegisterForm = () => {
             error={Boolean(confirmPasswordError)}
             helperText={confirmPasswordError}
           />
-          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3 }}>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3 }}
+            disabled={
+              !formData.name ||
+              !formData.email ||
+              !formData.password ||
+              !formData.confirmPassword||
+              emailError||passwordError||confirmPasswordError||nameError
+            }
+          >
             Register
           </Button>
           <Box mt={2}>
