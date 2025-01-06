@@ -16,7 +16,7 @@ import {
   validatePassword,
   validateName,
 } from "../../utils/validationUtil";
-import { listUser } from "../../redux/thunks/userThunk";
+import{users} from '../../../mock/db.json'
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -27,6 +27,7 @@ const RegisterForm = () => {
     password: "",
     confirmPassword: "",
   });
+  console.log("🚀 ~ users:", users)
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
@@ -62,7 +63,7 @@ const RegisterForm = () => {
     e.preventDefault();
     
     // Check if email already exists in the user list
-    const emailExists = userList.some(user => user.email === formData.email);
+    const emailExists = users.some(user => user.email === formData.email);
     if (emailExists) {
       setEmailError("This email is already registered");
       return;
@@ -92,14 +93,8 @@ const RegisterForm = () => {
       setConfirmPasswordError("Passwords do not match");
     }
   };
-  const getAllUserList = async () => {
-    const data = await dispatch(listUser())
-   setUserList(data.payload)
-  }
+ 
 
-  useEffect(()=> {
-    getAllUserList()
-  },[])
 
   return (
     <Container
