@@ -4,11 +4,21 @@ import DashboardView from "../sections/dashboard/view/dashboard-view";
 import EstimateCreateView from "../sections/estimates/view/estimate-create-view";
 import EstimateEditView from "../sections/estimates/view/estimate-edit-view";
 import EstimatesView from "../sections/estimates/view/estimates-view";
+import ForgetView from "../sections/Forget/view/forget-view";
+import LoginView from "../sections/login/view/login-view";
 import ProjectCreateView from "../sections/project/view/project-create-view";
 import ProjectEditView from "../sections/project/view/project-edit-view";
 import ProjectsView from "../sections/project/view/project-view";
+import RegisterView from "../sections/Register/view/register-view";
 
-const PrivateRoute = [
+
+const publicRoutes = [
+  { path: "/login", element: <LoginView /> },
+  { path: "/register", element: <RegisterView /> },
+  { path: "/forget", element: <ForgetView /> },
+];
+
+const privateRoutes = [
   {
     text: "Dashboard",
     icon: <Iconify icon={"radix-icons:dashboard"} />,
@@ -53,4 +63,4 @@ const PrivateRoute = [
   },
 ];
 
-export default PrivateRoute;
+export { publicRoutes, privateRoutes };

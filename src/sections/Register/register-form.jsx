@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -16,6 +16,7 @@ import {
   validatePassword,
   validateName,
 } from "../../utils/validationUtil";
+import { listUser } from "../../redux/thunks/userThunk";
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ const RegisterForm = () => {
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [nameError, setNameError] = useState("");
+  const [userList,setUserList] = useState([])
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -58,6 +60,15 @@ const RegisterForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    // Check if email already exists in the user list
+    const emailExists = userList.some(user => user.email === formData.email);
+    if (emailExists) {
+      setEmailError("This email is already registered");
+      return;
+    }
+  
+    // Validate the form fields
     if (!validateEmail(formData.email)) {
       setEmailError("Invalid email format");
       return;
@@ -74,13 +85,21 @@ const RegisterForm = () => {
       dispatch(registerUser(formData)).then((res) => {
         if (res.meta.requestStatus === "fulfilled") {
           navigate("/login");
-          showSuccess("User Registered successful!");
+          showSuccess("User Registered successfully!");
         }
       });
     } else {
       setConfirmPasswordError("Passwords do not match");
     }
   };
+  const getAllUserList = async () => {
+    const data = await dispatch(listUser())
+   setUserList(data.payload)
+  }
+
+  useEffect(()=> {
+    getAllUserList()
+  },[])
 
   return (
     <Container

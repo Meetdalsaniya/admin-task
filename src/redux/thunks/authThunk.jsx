@@ -42,6 +42,7 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+
 export const logoutUser = createAsyncThunk(
   "auth/logoutUser",
   async (_, { rejectWithValue }) => {
@@ -50,19 +51,6 @@ export const logoutUser = createAsyncThunk(
       return "Logout Successfully";
     } catch (error) {
       return rejectWithValue("Something Error Occured");
-    }
-  }
-);
-
-export const loadUser = createAsyncThunk(
-  "auth/loadUser",
-  async (_, { rejectWithValue }) => {
-    try {
-      const { data } = await axios.get(`/api/v1/dashboard/profile`);
-
-      return data.data;
-    } catch (error) {
-      return rejectWithValue(error?.response?.data);
     }
   }
 );

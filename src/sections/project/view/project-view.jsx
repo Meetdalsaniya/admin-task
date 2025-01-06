@@ -110,7 +110,7 @@ const ProjectsView = () => {
           </Button>
         </Box>
       </Box>
-      {projects == 0 ? (
+      {filteredData.length == 0 ? (
         <EmptyState height={"66vh"} />
       ) : (
         <TableContainer

@@ -11,11 +11,11 @@ const ProjectTableRow = ({
   return (
     <TableRow>
       {/* Display project data for each column */}
-      {columns.map((column) => {
+      {columns.map((column,index) => {
         // If the column is "Action", render the Edit and Delete buttons
         if (column === "Action") {
           return (
-            <TableCell key={column}>
+            <TableCell key={index}>
               <IconButton onClick={() => handleEditClick(row.id)}>
                 <Iconify icon={"raphael:edit"} />
               </IconButton>
